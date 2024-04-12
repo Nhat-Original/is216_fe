@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import React, { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { ToastContainer, Bounce } from 'react-toastify'
-import Providers from '@/components/Providers'
+import Providers from '@/components/providers'
 
 const metadata: Metadata = {
   title: 'IS216 - Next.js',
@@ -11,13 +11,12 @@ const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html lang="vi" >
+    <html lang="vi">
       <head>
         <link rel="icon" href="/images/favicon.ico" />
       </head>
       <body>
         <Providers>
-
           {children}
 
           <ToastContainer
