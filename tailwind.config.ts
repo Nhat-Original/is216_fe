@@ -6,7 +6,17 @@ const config: TailwindConfig = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  theme: {},
+  theme: {
+    extend: {
+      colors: {
+        primary: '#B88E2F',
+        secondary: '#F9F1E7',
+        white: '#FFFFFF',
+        black: '#000000',
+        gray: '#9F9F9F',
+      },
+    },
+  },
 }
 
 export default config
