@@ -11,7 +11,7 @@ const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html lang="vi">
+    <html lang="vi" data-theme="light">
       <head>
         <link rel="icon" href="/images/favicon.ico" />
       </head>
