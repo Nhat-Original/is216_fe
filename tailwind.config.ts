@@ -17,6 +17,10 @@ const config: TailwindConfig = {
       },
     },
   },
+  daisyui: {
+    themes: ['light'],
+  },
+  plugins: [require('daisyui')],
 }
 
 export default config
