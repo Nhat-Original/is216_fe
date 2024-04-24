@@ -3,10 +3,9 @@
 @tailwind utilities;
 
 @layer utilities {
-  /* 
-  // for development
-  * {
-    @apply border;
+  button,
+  select,
+  input {
+    @apply !outline-none !ring-0;
   }
-  */
 }
