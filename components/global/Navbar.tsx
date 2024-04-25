@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import React from 'react'
 import logo from '@/public/images/favicon.ico'
@@ -8,7 +9,11 @@ import { userSessionStore } from '@/app/lib/store'
 import AuthButton from './AuthButton'
 const Navbar = () => {
   const router = useRouter()
-  const { auth } = useStore(userSessionStore)
+
+  const { auth, login } = useStore(userSessionStore)
+  React.useEffect(() => {
+    login()
+  }, [])
   return (
     <nav className="z-10 sticky top-0 bg-white flex items-center justify-evenly navbar ">
       <div

@@ -1,5 +1,18 @@
 'use client'
+import { userSessionStore } from '@/app/lib/store'
+import { useStore } from 'zustand'
+import { useQuery } from '@tanstack/react-query'
+import { api } from '@/api/api'
 const UserBar = () => {
+  const userSession = useStore(userSessionStore, (state) => state)
+  const { data } = useQuery({
+    queryKey: ['user'],
+    queryFn: () =>
+      api.get(`http://localhost:8080/api/v1/user/${userSession.user.id}`, {
+        headers: {},
+      }),
+  })
+  console.log(data)
   return (
     <div className="flex-none">
       <div className="dropdown dropdown-end">
@@ -36,10 +49,7 @@ const UserBar = () => {
       <div className="dropdown dropdown-end">
         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
           <div className="w-10 rounded-full">
-            <img
-              alt="Tailwind CSS Navbar component"
-              src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-            />
+            <img alt="User's Avatar" src={`https://ui-avatars.com/api/?name=jone`} />
           </div>
         </div>
         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">

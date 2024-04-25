@@ -11,7 +11,7 @@ const AuthButton = () => {
     return <SignUpIcon />
   }
   return (
-    <>
+    <div>
       <div className="">
         <a className="btn btn-ghost text-lg" href="/signin">
           Đăng nhập
@@ -22,7 +22,7 @@ const AuthButton = () => {
           Đăng ký
         </a>
       </div>
-    </>
+    </div>
   )
 }
 export default AuthButton

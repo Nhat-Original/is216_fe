@@ -3,14 +3,14 @@ import { jwtDecode, JwtPayload } from 'jwt-decode'
 import { StoreApi, UseBoundStore } from 'zustand'
 import { persist } from 'zustand/middleware'
 type User = {
-  email: string
+  id: string
   role: string
 }
 type jwtPayLoadWithRole = JwtPayload & { role: string }
 type StateUser = {
   auth: boolean
   user: User
-  login: (token: string) => void
+  login: () => void
   logout: () => void
 }
 export type Auth = {
@@ -20,20 +20,26 @@ export type Auth = {
 export const userSessionStore = create<StateUser>((set) => ({
   auth: false,
   user: {
-    email: '',
+    id: '',
     role: '',
   },
-  login: (token: string) => {
-    const decoded = jwtDecode<jwtPayLoadWithRole>(token)
-    set({
-      auth: true,
-      user: {
-        email: decoded.sub as string,
-        role: decoded.role as string,
-      },
-    })
+  login: () => {
+    const token = (useTokenStore.getState() as any).token
+    if (token !== '') {
+      const decoded = jwtDecode<jwtPayLoadWithRole>(token)
+      set({
+        auth: true,
+        user: {
+          id: decoded.sub as string,
+          role: decoded.role as string,
+        },
+      })
+    }
   },
-  logout: () => set({ auth: false, user: { email: '', role: '' } }),
+  logout: () => {
+    useTokenStore.persist.clearStorage()
+    set({ auth: false, user: { id: '', role: '' } })
+  },
 }))
 export const useTokenStore = create(
   persist((set) => ({ token: '', setToken: (token: string) => set({ token }) }), { name: 'token-storage' }),
