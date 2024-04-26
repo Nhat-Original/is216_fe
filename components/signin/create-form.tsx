@@ -53,6 +53,7 @@ const CreateForm = () => {
           <input
             name="password"
             id="password"
+            autoComplete="on"
             defaultValue={state.data?.password || ''}
             aria-describedby="password-error"
             type="password"

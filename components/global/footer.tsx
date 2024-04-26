@@ -1,7 +1,7 @@
 import logo from '@/public/images/favicon.ico'
 import Image from 'next/image'
 import { SocialIcon } from 'react-social-icons'
-export const Footer = () => {
+const Footer = () => {
   return (
     <footer className="footer p-10  text-base-content gap-40">
       <aside className="">
@@ -38,3 +38,4 @@ export const Footer = () => {
     </footer>
   )
 }
+export default Footer
