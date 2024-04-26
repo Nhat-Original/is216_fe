@@ -1,17 +1,17 @@
 'use client'
 import { useFormState } from 'react-dom'
-import { State, login } from '@/app/lib/action'
-import { useTokenStore, userSessionStore } from '@/app/lib/store'
+import { State, login } from '@/app/(auth)/action'
+import { useTokenStore, useSessionStore } from '@/stores/useSessionStore'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useStore } from 'zustand'
 
-const CreateForm = () => {
+const SigninForm = () => {
   const initialState: State = { errors: {}, message: '', data: {} }
   const router = useRouter()
   const [state, dispatch] = useFormState(login, initialState)
   const store: any = useStore(useTokenStore, (s) => s)
-  const UserSessionStore: any = useStore(userSessionStore, (s) => s)
+  const UserSessionStore: any = useStore(useSessionStore, (s) => s)
   useEffect(() => {
     if ('access_token' in state.data) {
       store.setToken(state.data.access_token)
@@ -76,4 +76,4 @@ const CreateForm = () => {
     </form>
   )
 }
-export default CreateForm
+export default SigninForm

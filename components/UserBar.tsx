@@ -1,11 +1,11 @@
 'use client'
-import { userSessionStore } from '@/app/lib/store'
+import { useSessionStore } from '@/stores/useSessionStore'
 import { useStore } from 'zustand'
 import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { api } from '@/api/api'
 const UserBar = () => {
-  const userSession = useStore(userSessionStore, (state) => state)
+  const userSession = useStore(useSessionStore, (state) => state)
   const { data } = useQuery({
     queryKey: ['user'],
     queryFn: () => api.get(`/user/${userSession.user.id}`),
@@ -66,7 +66,7 @@ const UserBar = () => {
           </li>
           <li
             onClick={() => {
-              userSessionStore.getState().logout()
+              useSessionStore.getState().logout()
               router.push('/signin')
             }}
           >

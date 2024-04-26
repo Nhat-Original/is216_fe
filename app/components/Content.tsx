@@ -4,7 +4,7 @@ import Stat from './Stat'
 import Timeline from './Timeline'
 const Content = () => {
   return (
-    <main className="flex flex-col gap-10 ">
+    <main className="flex flex-col gap-10 top-10">
       <Hero />
       <Carousel />
       <Stat />

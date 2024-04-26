@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['daisyui.com'],
+    remotePatterns: [
+      {
+        hostname: 'daisyui.com',
+      },
+    ],
   },
 }
 

@@ -1,10 +1,10 @@
 'use client'
 import { useFormState } from 'react-dom'
-import { register } from '@/app/lib/action'
-import type { State } from '@/app/lib/action'
+import { register } from '@/app/(auth)/action'
+import type { State } from '@/app/(auth)/action'
 import { useState } from 'react'
 
-const CreateForm = () => {
+const SignupForm = () => {
   const initialState: State = { errors: {}, message: '', data: {} }
   const [state, dispatch] = useFormState(register, initialState)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
@@ -202,4 +202,4 @@ const CreateForm = () => {
     </form>
   )
 }
-export default CreateForm
+export default SignupForm

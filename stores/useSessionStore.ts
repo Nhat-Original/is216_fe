@@ -17,7 +17,7 @@ export type Auth = {
   token: string
   setToken: (token: string) => void
 }
-export const userSessionStore = create<StateUser>((set) => ({
+export const useSessionStore = create<StateUser>((set) => ({
   auth: false,
   user: {
     id: '',
@@ -43,6 +43,7 @@ export const userSessionStore = create<StateUser>((set) => ({
     set({ auth: false, user: { id: '', role: '' } })
   },
 }))
+
 export const useTokenStore = create(
   persist((set) => ({ token: '', setToken: (token: string) => set({ token }) }), { name: 'token-storage' }),
 )
@@ -58,10 +59,3 @@ export const createSelectors = <S extends UseBoundStore<StoreApi<State>>>(_store
 
   return store
 }
-
-//usage
-// import { authStore, userSessionStore } from '@/lib/store'
-// const AuthStore = createSelectors(authStore)
-// const UserSessionStore = createSelectors(userSessionStore)
-// const useAuth = AuthStore.use
-// const useUserSession = UserSessionStore.use

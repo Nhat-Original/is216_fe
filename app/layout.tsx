@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import React, { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { ToastContainer, Bounce } from 'react-toastify'
-import Providers from '@/components/providers'
+import Providers from '@/components/Providers'
 
 const metadata: Metadata = {
   title: 'IS216 - Next.js',

@@ -1,7 +1,7 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import { SignUpIcon } from '../Icon/SignUpIcon'
-import { SignInIcon } from '../Icon/SignInIcon'
+import { SignUpIcon } from './icons/SignUpIcon'
+import { SignInIcon } from './icons/SignInIcon'
 const AuthButton = () => {
   const pathname = usePathname()
   if (pathname === '/signin') {

@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect } from 'react'
 import ShowcaseCard from './ShowcaseCard'
-import useFoodStore from '../hooks/useFoodStore'
+import useFoodStore from '../stores/useFoodStore'
 import { useShallow } from 'zustand/react/shallow'
 
 const dummyData = [

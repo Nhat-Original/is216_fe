@@ -1,6 +1,6 @@
 import React from 'react'
 import FunctionBar from './components/FunctionBar'
-import RouteBreadcrumb from '@/components/routeBreadcrumb'
+import RouteBreadcrumb from '@/components/RouteBreadcrumb'
 import Gallery from './components/Gallery'
 import Pagnition from './components/Pagnition'
 
