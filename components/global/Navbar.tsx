@@ -10,10 +10,11 @@ import AuthButton from './AuthButton'
 const Navbar = () => {
   const router = useRouter()
 
-  const { auth, login } = useStore(userSessionStore)
+  const { auth, login, user } = useStore(userSessionStore)
   React.useEffect(() => {
     login()
   }, [])
+  console.log(auth, user)
   return (
     <nav className="z-10 sticky top-0 bg-white flex items-center justify-evenly navbar ">
       <div

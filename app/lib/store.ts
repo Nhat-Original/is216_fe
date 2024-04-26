@@ -25,6 +25,7 @@ export const userSessionStore = create<StateUser>((set) => ({
   },
   login: () => {
     const token = (useTokenStore.getState() as any).token
+    console.log(token)
     if (token !== '') {
       const decoded = jwtDecode<jwtPayLoadWithRole>(token)
       set({
@@ -38,6 +39,7 @@ export const userSessionStore = create<StateUser>((set) => ({
   },
   logout: () => {
     useTokenStore.persist.clearStorage()
+    useTokenStore.setState({ token: '' })
     set({ auth: false, user: { id: '', role: '' } })
   },
 }))

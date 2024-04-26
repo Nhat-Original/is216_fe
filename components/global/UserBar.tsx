@@ -2,17 +2,16 @@
 import { userSessionStore } from '@/app/lib/store'
 import { useStore } from 'zustand'
 import { useQuery } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 import { api } from '@/api/api'
 const UserBar = () => {
   const userSession = useStore(userSessionStore, (state) => state)
   const { data } = useQuery({
     queryKey: ['user'],
-    queryFn: () =>
-      api.get(`http://localhost:8080/api/v1/user/${userSession.user.id}`, {
-        headers: {},
-      }),
+    queryFn: () => api.get(`/user/${userSession.user.id}`),
   })
-  console.log(data)
+  const router = useRouter()
+
   return (
     <div className="flex-none">
       <div className="dropdown dropdown-end">
@@ -49,7 +48,10 @@ const UserBar = () => {
       <div className="dropdown dropdown-end">
         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
           <div className="w-10 rounded-full">
-            <img alt="User's Avatar" src={`https://ui-avatars.com/api/?name=jone`} />
+            <img
+              alt="User's Avatar"
+              src={`https://ui-avatars.com/api/?name=${data?.data.fullName.replace(' ', '+')}`}
+            />
           </div>
         </div>
         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
@@ -62,7 +64,12 @@ const UserBar = () => {
           <li>
             <a>Settings</a>
           </li>
-          <li>
+          <li
+            onClick={() => {
+              userSessionStore.getState().logout()
+              router.push('/signin')
+            }}
+          >
             <a>Logout</a>
           </li>
         </ul>
