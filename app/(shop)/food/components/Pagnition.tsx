@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import useFoodStore from '../hooks/useFoodStore'
+import useFoodStore from '../stores/useFoodStore'
 import { useShallow } from 'zustand/react/shallow'
 
 const Pagnition = () => {

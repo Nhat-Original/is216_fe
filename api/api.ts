@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useTokenStore, userSessionStore } from '@/app/lib/store'
+import { useTokenStore, useSessionStore } from '@/stores/useSessionStore'
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   headers: {
@@ -23,7 +23,7 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response.status === 401) {
-      userSessionStore.getState().logout()
+      useSessionStore.getState().logout()
       window.location.href = '/signin'
     }
     return Promise.reject(error)

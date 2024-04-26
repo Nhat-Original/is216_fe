@@ -5,18 +5,21 @@ import logo from '@/public/images/favicon.ico'
 import UserBar from './UserBar'
 import { useRouter } from 'next/navigation'
 import { useStore } from 'zustand'
-import { userSessionStore } from '@/app/lib/store'
+import { useSessionStore } from '@/stores/useSessionStore'
 import AuthButton from './AuthButton'
+
 const Navbar = () => {
   const router = useRouter()
 
-  const { auth, login, user } = useStore(userSessionStore)
+  const { auth, login, user } = useStore(useSessionStore)
   React.useEffect(() => {
     login()
   }, [])
+
   console.log(auth, user)
+
   return (
-    <nav className="z-10 sticky top-0 bg-white flex items-center justify-evenly navbar ">
+    <nav className="z-10 sticky top-0 bg-white flex items-center justify-evenly navbar border-b-2  border-base-300 h-[75px]">
       <div
         className="flex items-center gap-4 cursor-pointer"
         onClick={() => {

@@ -1,7 +1,8 @@
 import { ReactNode } from 'react'
 import Head from 'next/head'
-import Navbar from '@/components/global/Navbar'
-import Footer from '@/components/global/Footer'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+
 type LayoutProps = {
   children: ReactNode
 }
@@ -14,8 +15,7 @@ const AuthLayout = ({ children }: LayoutProps) => {
       </Head>
       <div className="flex flex-col">
         <Navbar />
-        <main className="min-h-[calc(100vh-100px)]">{children}</main>
-        <div className="divider"></div>
+        <main className="min-h-[calc(100vh-75px)]">{children}</main>
         <Footer />
       </div>
     </>
