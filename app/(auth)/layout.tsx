@@ -15,8 +15,7 @@ const AuthLayout = ({ children }: LayoutProps) => {
       </Head>
       <div className="flex flex-col">
         <Navbar />
-        <main className="min-h-[calc(100vh-100px)]">{children}</main>
-        <div className="divider"></div>
+        <main className="min-h-[calc(100vh-75px)]">{children}</main>
         <Footer />
       </div>
     </>

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { SocialIcon } from 'react-social-icons'
 const Footer = () => {
   return (
-    <footer className="footer p-10  text-base-content gap-40">
+    <footer className="footer p-10  text-base-content gap-40 border-base-300 border-t-2">
       <aside className="">
         <div className="flex size-60  items-center ">
           <Image src={logo} width={50} height={50} alt="Picture of the author" />
