@@ -18,7 +18,7 @@ type State = {
 
 const useFoodStore = create<State>((set) => ({
   // item per slide
-  itemsPerSlide: 16,
+  itemsPerSlide: 12,
   // slide
   activeSlide: 0,
   setActiveSlide: (activeSlide: number) => {
