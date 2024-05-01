@@ -9,7 +9,7 @@ const SigninPage = (): JSX.Element => {
         <h1 className="text-3xl font-semibold text-center text-primary">Đăng nhập</h1>
         <SigninForm />
         <span>
-          Đăng ký ?&nbsp;
+          Chưa có tài khoản ?&nbsp;
           <Link href={'/signup'} className="text-blue-600 hover:text-blue-800 hover:underline">
             Đăng ký
           </Link>
