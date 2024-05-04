@@ -79,7 +79,14 @@ type Eatery = {
   name: string
 }
 
+type Data = MenuItem & {
+  menuItemOptions: MenuItemOption[]
+  reviews: Review[]
+  eatery: Eatery
+}
+
 type State = {
+  isLoading: boolean
   menuItem: MenuItem | null
   eatery: Eatery | null
   menuItemOptions: MenuItemOption[]
@@ -88,13 +95,16 @@ type State = {
   numberOfReviews: number
   currentMenuItemOption: MenuItemOption | null
 
+  setIsLoading: (isLoading: boolean) => void
   setMenuItem: (menuItem: MenuItem) => void
   setEatery: (eatery: Eatery) => void
   setMenuItemOptions: (menuItemOptions: MenuItemOption[]) => void
   setReviews: (reviews: Review[]) => void
+  setCurrentMenuItemOption: (currentMenuItemOption: MenuItemOption) => void
 }
 
 const useFoodDetailStore = create<State>((set) => ({
+  isLoading: false,
   menuItem: null,
   eatery: null,
   menuItemOptions: [],
@@ -103,6 +113,9 @@ const useFoodDetailStore = create<State>((set) => ({
   numberOfReviews: 0,
   currentMenuItemOption: null,
 
+  setIsLoading: (isLoading: boolean) => {
+    set({ isLoading })
+  },
   setMenuItem: (menuItem: MenuItem) => {
     set({ menuItem })
   },
@@ -119,7 +132,10 @@ const useFoodDetailStore = create<State>((set) => ({
       numberOfReviews: reviews.length,
     })
   },
+  setCurrentMenuItemOption: (currentMenuItemOption: MenuItemOption) => {
+    set({ currentMenuItemOption })
+  },
 }))
 
-export type { State }
+export type { Data, State }
 export default useFoodDetailStore

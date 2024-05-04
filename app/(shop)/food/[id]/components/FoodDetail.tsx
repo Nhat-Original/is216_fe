@@ -1,66 +1,73 @@
 'use client'
 import Link from 'next/link'
 import React, { ReactNode } from 'react'
-
-const dummyData = {
-  id: '1f3d3866-d7d0-4da7-a953-59712c14e6b1',
-  name: 'food',
-  description:
-    'food description fsaghsakghkjsa ghsdkjhgkjshghkjsa  hjksdhgskagh sa gskajdghsakjg        fhskjdhgkjsahgkjsadh     gdhskjahgkjshglashg',
-  imageUrl: 'https://cdn.britannica.com/36/123536-050-95CB0C6E/Variety-fruits-vegetables.jpg',
-  menuItemOptions: [
-    {
-      id: '1f3d3866-d7d0-4da7-a953-59712c14e6b2',
-      size: 'S',
-      price: 1000,
-    },
-    {
-      id: '1f3d3866-d7d0-4da7-a953-59712c14e6b3',
-      size: 'M',
-      price: 2000,
-    },
-    {
-      id: '1f3d3866-d7d0-4da7-a953-59712c14e6b4',
-      size: 'L',
-      price: 3000,
-    },
-  ],
-  reviews: [
-    {
-      id: '1f3d3866-d7d0-4da7-a953-59712c14e6b5',
-      rating: 5,
-      comment: 'good food',
-      user: {
-        id: '1f3d3866-d7d0-4da7-a953-59712c14e6b6',
-        fullName: 'John Doe',
-      },
-    },
-    {
-      id: '1f3d3866-d7d0-4da7-a953-59712c14e6b7',
-      rating: 4,
-      comment: 'great',
-      user: {
-        id: '1f3d3866-d7d0-4da7-a953-59712c14e6b8',
-        fullName: 'Jane Doe',
-      },
-    },
-  ],
-  eatery: {
-    id: '1',
-    name: 'eatery name',
-  },
-}
+import useFoodDetailStore from '../stores/useFoodDetailStore'
+import { useShallow } from 'zustand/react/shallow'
+import LoadingSpinner from '@/components/LoadingSpinner'
+import { useMutation } from '@tanstack/react-query'
+import { api } from '@/api'
+import { useSessionStore } from '@/stores/useSessionStore'
+import { queryClient } from '@/components/Providers/QueryProvider'
 
 const FoodDetail = () => {
+  const user = useSessionStore((state) => state.user)
+
+  const [
+    isLoading,
+    menuItem,
+    eatery,
+    menuItemOptions,
+    currentMenuItemOption,
+    averageRating,
+    numberOfReviews,
+    setCurrentMenuItemOption,
+  ] = useFoodDetailStore(
+    useShallow((state) => [
+      state.isLoading,
+      state.menuItem,
+      state.eatery,
+      state.menuItemOptions,
+      state.currentMenuItemOption,
+      state.averageRating,
+      state.numberOfReviews,
+      state.setCurrentMenuItemOption,
+    ]),
+  )
+
+  const { mutate } = useMutation({
+    mutationFn: async ({
+      userId,
+      menuItemOptionId,
+      quantity,
+    }: {
+      userId: string
+      menuItemOptionId: string
+      quantity: number
+    }) => {
+      await api.post('/cart', {
+        userId,
+        menuItemOptionId,
+        quantity,
+      })
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [] })
+    },
+  })
+
+  if (isLoading) {
+    return <LoadingSpinner />
+  }
+
   return (
     <div className="flex flex-col items-center lg:items-start gap-10 lg:flex-row max-w-[1400px] mx-auto p-4 lg:gap-32">
       <div className="max-w-[475px] aspect-square">
-        <img className="w-full h-full object-cover rounded-2xl" src={dummyData.imageUrl} alt="food image" />
+        <img className="w-full h-full object-cover rounded-2xl" src={menuItem?.imageUrl} alt="food image" />
       </div>
 
       <div className="flex flex-col gap-4 grow">
-        <h1 className="text-5xl font-bold">{dummyData.name}</h1>
-        <p className="text-2xl text-primary">100000 VND</p>
+        <h1 className="text-5xl font-bold">{menuItem?.name}</h1>
+        <p className="text-2xl text-primary">{currentMenuItemOption?.price || 'Chưa cập nhật giá'}</p>
         <div className="flex items-center gap-2">
           <div className="rating rating-md rating-half">
             {(() => {
@@ -68,10 +75,10 @@ const FoodDetail = () => {
               for (let i = 1; i <= 10; ++i) {
                 list.push(
                   <input
-                    key={`food-${dummyData.id}average-rating-half-star-${i}`}
+                    key={`food-average-rating-half-star-${i}`}
                     type="radio"
                     className={`bg-primary mask mask-star-2 mask-half-${i % 2 === 0 ? '2' : '1'}`}
-                    checked={3.5 * 2 === i}
+                    checked={averageRating * 2 === i}
                     readOnly={true}
                   />,
                 )
@@ -79,21 +86,49 @@ const FoodDetail = () => {
               return list
             })()}
           </div>
-          <p>5 đánh giá</p>
+          <p>{numberOfReviews} đánh giá</p>
         </div>
-        <Link href={`/shop/${dummyData.eatery.id}`}>
-          <p className="underline">{dummyData.eatery.name}</p>
+        <Link href={`/shop/${eatery?.id}`}>
+          <p className="underline">{eatery?.name}</p>
         </Link>
-        <p>{dummyData.description}</p>
-        <form className="form-control">
+        <p>{menuItem?.description}</p>
+        <form
+          className="form-control"
+          onSubmit={async (e) => {
+            e.preventDefault()
+            const formData = new FormData(e.target as HTMLFormElement)
+            await mutate({
+              userId: user?.id,
+              menuItemOptionId: formData.get('menuItemOptionId') as string,
+              quantity: parseInt(formData.get('quantity') as string),
+            })
+          }}
+        >
           <label className=" w-20">
             <div className="label">
               <span className="label-text text-base w-full">Kích cỡ</span>
             </div>
-            <select className="select select-bordered">
-              <option>S</option>
-              <option>M</option>
-              <option>L</option>
+            <select
+              name="menuItemOptionId"
+              className="select select-bordered"
+              onChange={(e) => {
+                const currentMenuItemOption = menuItemOptions.find((option) => option.id === e.target.value)
+                if (currentMenuItemOption) {
+                  setCurrentMenuItemOption(currentMenuItemOption)
+                }
+              }}
+            >
+              {menuItemOptions.length === 0 ? (
+                <option className="disabled" value={''}>
+                  ?
+                </option>
+              ) : (
+                menuItemOptions?.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.size}
+                  </option>
+                ))
+              )}
             </select>
           </label>
           <label className=" w-20">
@@ -101,6 +136,7 @@ const FoodDetail = () => {
               <span className="label-text text-base">Số lượng</span>
             </div>
             <input
+              name="quantity"
               className="input input-bordered w-full"
               type="number"
               min="1"

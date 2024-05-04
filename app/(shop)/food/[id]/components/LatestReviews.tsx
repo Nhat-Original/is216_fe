@@ -1,56 +1,14 @@
+'use client'
 import React, { ReactNode } from 'react'
-
-const dummyData = {
-  id: '1f3d3866-d7d0-4da7-a953-59712c14e6b1',
-  name: 'food',
-  description:
-    'food description fsaghsakghkjsa ghsdkjhgkjshghkjsa  hjksdhgskagh sa gskajdghsakjg        fhskjdhgkjsahgkjsadh     gdhskjahgkjshglashg',
-  imageUrl: 'https://cdn.britannica.com/36/123536-050-95CB0C6E/Variety-fruits-vegetables.jpg',
-  menuItemOptions: [
-    {
-      id: '1f3d3866-d7d0-4da7-a953-59712c14e6b2',
-      size: 'S',
-      price: 1000,
-    },
-    {
-      id: '1f3d3866-d7d0-4da7-a953-59712c14e6b3',
-      size: 'M',
-      price: 2000,
-    },
-    {
-      id: '1f3d3866-d7d0-4da7-a953-59712c14e6b4',
-      size: 'L',
-      price: 3000,
-    },
-  ],
-  reviews: [
-    {
-      id: '1f3d3866-d7d0-4da7-a953-59712c14e6b5',
-      rating: 5,
-      comment: 'good food',
-      user: {
-        id: '1f3d3866-d7d0-4da7-a953-59712c14e6b6',
-        fullName: 'John Doe',
-      },
-    },
-    {
-      id: '1f3d3866-d7d0-4da7-a953-59712c14e6b7',
-      rating: 4.5,
-      comment: 'great',
-      user: {
-        id: '1f3d3866-d7d0-4da7-a953-59712c14e6b8',
-        fullName: 'Jane Doe',
-      },
-    },
-  ],
-  eatery: {
-    id: '1',
-    name: 'eatery name',
-  },
-}
+import useFoodDetailStore from '../stores/useFoodDetailStore'
+import { useShallow } from 'zustand/react/shallow'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
 const LatestReviews = () => {
-  const latestReviews = dummyData.reviews.slice(0, 2)
+  const [isLoading, reviews] = useFoodDetailStore(useShallow((state) => [state.isLoading, state.reviews]))
+  const latestReviews = reviews.slice(-2)
+
+  if (isLoading) return <LoadingSpinner />
 
   return (
     <div className=" flex flex-col gap-4 w-fit mx-auto ">
