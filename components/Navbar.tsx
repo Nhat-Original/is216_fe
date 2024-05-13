@@ -17,15 +17,19 @@ const Navbar = () => {
         <img className="scale-90" src={logo.src} alt="logo" />
         <p className="text-4xl font-bold">FoodHub</p>
       </Link>
-      <Link href="/food">
-        <p className="btn btn-ghost text-lg">Đồ ăn</p>
-      </Link>
-      <Link href="/shop">
-        <p className="btn btn-ghost text-lg">Shop đồ ăn</p>
-      </Link>
-      <Link href="/support">
-        <p className="btn btn-ghost text-lg">Hỗ trợ</p>
-      </Link>
+      {auth && (
+        <>
+          <Link href="/food">
+            <p className="btn btn-ghost text-lg">Đồ ăn</p>
+          </Link>
+          <Link href="/shop">
+            <p className="btn btn-ghost text-lg">Shop đồ ăn</p>
+          </Link>
+          <Link href="/support">
+            <p className="btn btn-ghost text-lg">Hỗ trợ</p>
+          </Link>
+        </>
+      )}
       {auth ? <UserBar /> : <AuthButton />}
     </nav>
   )

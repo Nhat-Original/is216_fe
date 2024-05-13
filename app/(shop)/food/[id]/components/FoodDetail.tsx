@@ -34,6 +34,8 @@ const FoodDetail = () => {
     ]),
   )
 
+  console.log('avg' + averageRating)
+
   const { mutate } = useMutation({
     mutationFn: async ({
       userId,
@@ -75,7 +77,8 @@ const FoodDetail = () => {
               for (let i = 1; i <= 10; ++i) {
                 list.push(
                   <input
-                    key={`food-average-rating-half-star-${i}`}
+                    key={`menu-item-${menuItem?.id}-average-rating-half-star-${i}`}
+                    name={`menu-item-${menuItem?.id}-average-rating`}
                     type="radio"
                     className={`bg-primary mask mask-star-2 mask-half-${i % 2 === 0 ? '2' : '1'}`}
                     checked={averageRating * 2 === i}
@@ -104,7 +107,7 @@ const FoodDetail = () => {
             })
           }}
         >
-          <label className=" w-20">
+          <label className="w-20">
             <div className="label">
               <span className="label-text text-base w-full">Kích cỡ</span>
             </div>

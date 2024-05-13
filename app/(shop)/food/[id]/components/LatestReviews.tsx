@@ -19,13 +19,14 @@ const LatestReviews = () => {
             <div className="rating rating-md rating-half">
               {(() => {
                 const list: ReactNode[] = []
-                for (let i = 1; i <= 10; ++i) {
+                for (let i = 1; i <= 5; ++i) {
                   list.push(
                     <input
-                      key={`review-${review.id}-rating-half-star-${i}`}
+                      key={`review-${review.id}-rating-star-${i}`}
+                      name={`review-${review.id}-rating`}
                       type="radio"
-                      className={`bg-primary mask mask-star-2 mask-half-${i % 2 === 0 ? '2' : '1'}`}
-                      checked={review.rating * 2 === i}
+                      className="bg-primary mask mask-star-2"
+                      checked={review.rating === i}
                       readOnly={true}
                     />,
                   )
