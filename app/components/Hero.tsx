@@ -14,6 +14,7 @@ const Hero = () => {
         style={{
           objectFit: 'cover',
         }}
+        priority={true}
       />
       <div className="hero-content text-center ">
         <div className="max-w-md ">

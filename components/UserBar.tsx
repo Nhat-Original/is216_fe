@@ -49,11 +49,12 @@ const UserBar = () => {
             <img alt="User's Avatar" src={avatarPlaceholder.src} />
           </div>
         </div>
-        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box">
+        <ul
+          tabIndex={0}
+          className="menu menu-sm w-[350px] dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box"
+        >
           <li>
-            <div>
-              <span className="font-bold">ID: </span> {auth ? user.id : ''}
-            </div>
+            <div>ID: {auth ? user.id : ''}</div>
           </li>
           <li
             onClick={() => {
