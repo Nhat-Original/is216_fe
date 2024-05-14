@@ -34,8 +34,6 @@ const FoodDetail = () => {
     ]),
   )
 
-  console.log('avg' + averageRating)
-
   const { mutate } = useMutation({
     mutationFn: async ({
       userId,
