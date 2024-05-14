@@ -1,26 +1,27 @@
 import { create } from 'zustand'
 
 type State = {
-  // item per slide
   itemsPerSlide: number
-  // slide
   activeSlide: number
+  originalFoodList: any[]
+  shownFoodList: any[]
+  nameSearch: string
+
   setActiveSlide: (activeSlide: number) => void
   increaseActiveSlide: () => void
   decreaseActiveSlide: () => void
-  // original food list
-  originalFoodList: any[]
   setOriginalFoodList: (originalFoodList: any[]) => void
-  // shown food list
-  shownFoodList: any[]
   setShownFoodListByActiveSlide: (activeSlide: number) => void
+  setNameSearch: (nameSearch: string) => void
 }
 
 const useFoodStore = create<State>((set) => ({
-  // item per slide
   itemsPerSlide: 12,
-  // slide
   activeSlide: 0,
+  originalFoodList: [],
+  shownFoodList: [],
+  nameSearch: '',
+
   setActiveSlide: (activeSlide: number) => {
     const setShownFoodListByActiveSlide = useFoodStore.getState().setShownFoodListByActiveSlide
     set({ activeSlide })
@@ -36,13 +37,9 @@ const useFoodStore = create<State>((set) => ({
     set((state) => ({ activeSlide: state.activeSlide - 1 }))
     setShownFoodListByActiveSlide(useFoodStore.getState().activeSlide)
   },
-  // original food list
-  originalFoodList: [],
-  setOriginalFoodList: (originalFoodList) => {
+  setOriginalFoodList: (originalFoodList: any[]) => {
     set({ originalFoodList })
   },
-  // shown food list
-  shownFoodList: [],
   setShownFoodListByActiveSlide: (activeSlide: number) => {
     const itemsPerSlide = useFoodStore.getState().itemsPerSlide
     const originalFoodList = useFoodStore.getState().originalFoodList
@@ -51,6 +48,11 @@ const useFoodStore = create<State>((set) => ({
       activeSlide * itemsPerSlide + itemsPerSlide,
     )
     set({ shownFoodList })
+  },
+  setNameSearch: (nameSearch: string) => {
+    if (!nameSearch) {
+      set({ nameSearch: '' })
+    } else set({ nameSearch })
   },
 }))
 

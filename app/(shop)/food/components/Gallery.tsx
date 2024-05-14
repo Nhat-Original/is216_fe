@@ -1,26 +1,32 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import ShowcaseCard from './ShowcaseCard'
 import useFoodStore from '../stores/useFoodStore'
 import { useShallow } from 'zustand/react/shallow'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/api'
 import LoadingSpinner from '@/components/LoadingSpinner'
 
 const Gallery = () => {
-  const [setOriginalFoodList, setActiveSlide, shownFoodList] = useFoodStore(
-    useShallow((state) => [state.setOriginalFoodList, state.setActiveSlide, state.shownFoodList]),
+  const [setOriginalFoodList, setActiveSlide, shownFoodList, nameSearch] = useFoodStore(
+    useShallow((state) => [state.setOriginalFoodList, state.setActiveSlide, state.shownFoodList, state.nameSearch]),
   )
 
   const { isLoading } = useQuery({
-    queryKey: ['menu-item'],
+    queryKey: ['menu-item', nameSearch],
     queryFn: async () => {
-      const response = await api.get('/menu-item')
+      const response = await api.get(`/menu-item?name=${nameSearch}`)
       setOriginalFoodList(response.data)
       setActiveSlide(0)
       return response.data
     },
   })
+
+  const queryClient = useQueryClient()
+
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ['menu-item'] })
+  }, [nameSearch, queryClient])
 
   if (isLoading) return <LoadingSpinner />
 
