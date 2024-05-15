@@ -5,11 +5,14 @@ import { useMutation } from '@tanstack/react-query'
 import React from 'react'
 import useFoodDetailStore from '../stores/useFoodDetailStore'
 import { api } from '@/api'
+import { useShallow } from 'zustand/react/shallow'
 
 const ReviewForm = () => {
   const user = useSessionStore((state) => state.user)
 
-  const menuItem = useFoodDetailStore((state) => state.menuItem)
+  const [menuItem, reviews] = useFoodDetailStore(useShallow((state) => [state.menuItem, state.reviews]))
+
+  const alreadyReviewed = reviews.some((review) => review.user.id === user.id)
 
   const { mutate } = useMutation({
     mutationFn: async ({
@@ -65,8 +68,8 @@ const ReviewForm = () => {
         className="resize-none textarea textarea-bordered"
         placeholder="Bình luận"
       ></textarea>
-      <button type="submit" className="btn w-[200px] bg-primary mt-4">
-        Thêm đánh giá
+      <button type="submit" className="btn w-[200px] bg-primary mt-4" disabled={alreadyReviewed}>
+        {alreadyReviewed ? 'Bạn đã đánh giá' : 'Thêm đánh giá'}
       </button>
     </form>
   )

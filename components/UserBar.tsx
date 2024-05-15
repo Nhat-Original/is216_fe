@@ -3,6 +3,7 @@ import { useSessionStore } from '@/stores/useSessionStore'
 import { useRouter } from 'next/navigation'
 import avatarPlaceholder from '@/public/images/avatarPlaceholder.png'
 import { useShallow } from 'zustand/react/shallow'
+import Link from 'next/link'
 
 const UserBar = () => {
   const router = useRouter()
@@ -56,13 +57,16 @@ const UserBar = () => {
           <li>
             <div>ID: {auth ? user.id : ''}</div>
           </li>
+          <li>
+            <Link href="/settings/user-addresses">Quản lý địa chỉ</Link>
+          </li>
           <li
             onClick={() => {
               useSessionStore.getState().logout()
               router.push('/')
             }}
           >
-            <div>Logout</div>
+            <div>Đăng xuất</div>
           </li>
         </ul>
       </div>
