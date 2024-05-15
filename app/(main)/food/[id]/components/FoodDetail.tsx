@@ -78,7 +78,7 @@ const FoodDetail = () => {
                     key={`menu-item-${menuItem?.id}-average-rating-half-star-${i}`}
                     name={`menu-item-${menuItem?.id}-average-rating`}
                     type="radio"
-                    className={`bg-primary mask mask-star-2 mask-half-${i % 2 === 0 ? '2' : '1'}`}
+                    className={`bg-primary mask mask-star-2 ${i % 2 === 0 ? 'mask-half-2' : 'mask-half-1'}`}
                     checked={averageRating * 2 === i}
                     readOnly={true}
                   />,
