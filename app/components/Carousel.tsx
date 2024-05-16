@@ -1,7 +1,7 @@
 import Image from 'next/image'
 const Carousel = () => {
   return (
-    <div className="max-w-6xl carousel w-full flex flex-nowrap whitespace-nowrap mx-auto">
+    <div className="max-w-6xl carousel w-full flex flex-nowrap whitespace-nowrap mx-auto overflow-x-scroll">
       <div className="carousel-item">
         <Image
           src="https://daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.jpg"

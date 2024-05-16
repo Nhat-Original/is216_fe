@@ -10,6 +10,7 @@ const UserBar = () => {
     queryKey: ['user'],
     queryFn: () => api.get(`/user/${userSession.user.id}`),
   })
+  console.log(data)
   const router = useRouter()
 
   return (

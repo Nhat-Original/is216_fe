@@ -1,5 +1,7 @@
 import axios from 'axios'
-import { useTokenStore, useSessionStore } from '@/stores/useSessionStore'
+import { useSessionStore, useTokenStore } from '@/stores/useSessionStore'
+import { redirect } from 'next/navigation'
+
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   headers: {
@@ -17,14 +19,18 @@ api.interceptors.request.use((config) => {
   }
   return config
 })
+
 api.interceptors.response.use(
   (response) => {
+    if (typeof response.data === 'string') {
+      response.data = JSON.parse(response.data)
+    }
     return response
   },
   (error) => {
-    if (error.response.status === 401) {
+    if (error.response && error.response.status === 401 && error.config.url !== '/auth/login') {
       useSessionStore.getState().logout()
-      window.location.href = '/signin'
+      redirect('/signin')
     }
     return Promise.reject(error)
   },
