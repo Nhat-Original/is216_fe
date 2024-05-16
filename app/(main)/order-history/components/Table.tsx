@@ -18,6 +18,7 @@ const Table = () => {
       setOrders(response.data)
       return response.data
     },
+    enabled: !!user.id,
   })
 
   const convertPaymentMethodToString = (paymentMethod: PaymentMethod): string => {

@@ -26,7 +26,7 @@ const Navbar = () => {
             <Link href="/shop">
               <p className="btn btn-ghost text-lg">Shop đồ ăn</p>
             </Link>
-            <Link href="order-history">
+            <Link href="/order-history">
               <p className="btn btn-ghost text-lg">Lịch sử đơn hàng</p>
             </Link>
             <Link href="/support">
@@ -46,7 +46,7 @@ const Navbar = () => {
                 <Link href="/shop">Shop đồ ăn</Link>
               </li>
               <li>
-                <Link href="order-history">Lịch sử đơn hàng</Link>
+                <Link href="/order-history">Lịch sử đơn hàng</Link>
               </li>
               <li>
                 <Link href="/support">Hỗ trợ</Link>
