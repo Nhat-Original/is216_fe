@@ -8,6 +8,7 @@ type User = {
 }
 type jwtPayLoadWithRole = JwtPayload & { role: string }
 type StateUser = {
+  isLoading: boolean
   auth: boolean
   user: User
   login: () => void
@@ -18,6 +19,7 @@ export type Auth = {
   setToken: (token: string) => void
 }
 export const useSessionStore = create<StateUser>((set) => ({
+  isLoading: true,
   auth: false,
   user: {
     id: '',
@@ -28,6 +30,7 @@ export const useSessionStore = create<StateUser>((set) => ({
     if (token !== '') {
       const decoded = jwtDecode<jwtPayLoadWithRole>(token)
       set({
+        isLoading: false,
         auth: true,
         user: {
           id: decoded.sub as string,
@@ -35,16 +38,25 @@ export const useSessionStore = create<StateUser>((set) => ({
         },
       })
     }
+    set({ isLoading: false })
   },
   logout: () => {
     useTokenStore.persist.clearStorage()
     useTokenStore.setState({ token: '' })
-    set({ auth: false, user: { id: '', role: '' } })
+    set({ isLoading: false, auth: false, user: { id: '', role: '' } })
   },
 }))
 
 export const useTokenStore = create(
-  persist((set) => ({ token: '', setToken: (token: string) => set({ token }) }), { name: 'token-storage' }),
+  persist(
+    (set) => ({
+      token: '',
+      setToken: (token: string) => set({ token }),
+    }),
+    {
+      name: 'token-storage',
+    },
+  ),
 )
 
 type WithSelectors<S> = S extends { getState: () => infer T } ? S & { use: { [K in keyof T]: () => T[K] } } : never

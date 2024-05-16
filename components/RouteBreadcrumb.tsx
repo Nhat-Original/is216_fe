@@ -8,13 +8,13 @@ const RouteBreadcrumb = () => {
   return (
     <div className="h-fit w-screen p-2 flex items-center">
       <div>
-        <span>Home</span>
-        <span className="text-2xl font-bold">{' > '}</span>
+        <span>HOME</span>
+        <span className="text-2xl text-primary font-bold">{' > '}</span>
       </div>
       {routeElements.map((el) => (
         <div key={el}>
-          <span>{el}</span>
-          <span className="text-2xl font-bold">{' > '}</span>
+          <span className="uppercase">{el}</span>
+          <span className="text-2xl text-primary font-bold">{' > '}</span>
         </div>
       ))}
     </div>

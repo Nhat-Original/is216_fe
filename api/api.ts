@@ -1,6 +1,8 @@
 import axios from 'axios'
+
 import { useSessionStore, useTokenStore } from '@/stores/useSessionStore'
 import { redirect } from 'next/navigation'
+
 
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,

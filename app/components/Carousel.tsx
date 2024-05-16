@@ -1,62 +1,34 @@
-import Image from 'next/image'
+import carousel1 from '../assets/carousel1.jpg'
+import carousel2 from '../assets/carousel2.jpg'
+import carousel3 from '../assets/carousel3.jpg'
+import carousel4 from '../assets/carousel4.jpg'
+import carousel5 from '../assets/carousel5.jpg'
+import carousel6 from '../assets/carousel6.jpg'
+import carousel7 from '../assets/carousel7.jpg'
+
 const Carousel = () => {
   return (
     <div className="max-w-6xl carousel w-full flex flex-nowrap whitespace-nowrap mx-auto overflow-x-scroll">
       <div className="carousel-item">
-        <Image
-          src="https://daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.jpg"
-          alt="Burger"
-          width={200}
-          height={200}
-        />
+        <img src={carousel1.src} alt="carousel showcase image" className="w-[300px] aspect-square" />
       </div>
       <div className="carousel-item">
-        <Image
-          src="https://daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.jpg"
-          alt="Burger"
-          width={200}
-          height={200}
-        />
+        <img src={carousel2.src} alt="carousel showcase image" className="w-[300px] aspect-square" />
       </div>
       <div className="carousel-item">
-        <Image
-          src="https://daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.jpg"
-          alt="Burger"
-          width={200}
-          height={200}
-        />
+        <img src={carousel3.src} alt="carousel showcase image" className="w-[300px] aspect-square" />
       </div>
       <div className="carousel-item">
-        <Image
-          src="https://daisyui.com/images/stock/photo-1494253109108-2e30c049369b.jpg"
-          alt="Burger"
-          width={200}
-          height={200}
-        />
+        <img src={carousel4.src} alt="carousel showcase image" className="w-[300px] aspect-square" />
       </div>
       <div className="carousel-item">
-        <Image
-          src="https://daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.jpg"
-          alt="Burger"
-          width={200}
-          height={200}
-        />
+        <img src={carousel5.src} alt="carousel showcase image" className="w-[300px] aspect-square" />
       </div>
       <div className="carousel-item">
-        <Image
-          src="https://daisyui.com/images/stock/photo-1559181567-c3190ca9959b.jpg"
-          alt="Burger"
-          width={200}
-          height={200}
-        />
+        <img src={carousel6.src} alt="carousel showcase image" className="w-[300px] aspect-square" />
       </div>
       <div className="carousel-item">
-        <Image
-          src="https://daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.jpg"
-          alt="Burger"
-          width={200}
-          height={200}
-        />
+        <img src={carousel7.src} alt="carousel showcase image" className="w-[300px] aspect-square" />
       </div>
     </div>
   )
