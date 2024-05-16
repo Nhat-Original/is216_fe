@@ -6,6 +6,12 @@ import { useShallow } from 'zustand/react/shallow'
 import Link from 'next/link'
 
 const UserBar = () => {
+
+  const userSession = useStore(useSessionStore, (state) => state)
+  const { data } = useQuery({
+    queryKey: ['user'],
+    queryFn: () => api.get(`/user/${userSession.user.id}`),
+  })
   const router = useRouter()
   const [auth, user] = useSessionStore(useShallow((state) => [state.auth, state.user]))
 

@@ -8,7 +8,7 @@ import carousel7 from '../assets/carousel7.jpg'
 
 const Carousel = () => {
   return (
-    <div className="max-w-6xl carousel w-full flex flex-nowrap whitespace-nowrap mx-auto">
+    <div className="max-w-6xl carousel w-full flex flex-nowrap whitespace-nowrap mx-auto overflow-x-scroll">
       <div className="carousel-item">
         <img src={carousel1.src} alt="carousel showcase image" className="w-[300px] aspect-square" />
       </div>

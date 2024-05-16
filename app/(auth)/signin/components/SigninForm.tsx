@@ -8,12 +8,13 @@ import { useStore } from 'zustand'
 
 const SigninForm = () => {
   const initialState: State = { errors: {}, message: '', data: {} }
+
   const router = useRouter()
   const [state, dispatch] = useFormState(login, initialState)
   const store: any = useStore(useTokenStore, (s) => s)
   const UserSessionStore: any = useStore(useSessionStore, (s) => s)
   useEffect(() => {
-    if ('access_token' in state.data) {
+    if ('access_token' in state?.data) {
       store.setToken(state.data.access_token)
       UserSessionStore.login(state.data.access_token)
       setTimeout(() => {
@@ -21,7 +22,7 @@ const SigninForm = () => {
       }, 10)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.data])
+  }, [state?.data])
 
   return (
     <form className="space-y-4" action={dispatch}>

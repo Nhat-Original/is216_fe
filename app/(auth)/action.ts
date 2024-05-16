@@ -51,21 +51,33 @@ export async function login(state: State, formData: FormData) {
       },
     }
   }
-  const response = await api.post('/auth/login', JSON.stringify(validatedField.data))
-  if ((response.statusText = 'OK')) {
+  try {
+    const response = await api.post('/auth/login', JSON.stringify(validatedField.data))
+    if ((response.statusText = 'OK')) {
+      return {
+        errors: {},
+        message: 'login success',
+        data: response.data,
+      }
+    } else {
+      return {
+        errors: {},
+        message: 'login failed',
+        data: {
+          ...state.data,
+          ...Object.fromEntries(formData),
+        },
+      }
+    }
+  } catch (error: any) {
     return {
       errors: {},
-      message: 'login success',
-      data: response.data,
+      message: error.message,
+      data: {
+        ...state.data,
+        ...Object.fromEntries(formData),
+      },
     }
-  }
-  return {
-    errors: {},
-    message: 'login failed',
-    data: {
-      ...state.data,
-      ...Object.fromEntries(formData),
-    },
   }
 }
 export async function register(prevState: State, formData: FormData) {
@@ -80,16 +92,28 @@ export async function register(prevState: State, formData: FormData) {
       },
     }
   }
-  const response = await api.post('/auth/register', JSON.stringify(validatedField.data))
-  if ((response.statusText = 'OK')) {
-    redirect('/login')
-  }
-  return {
-    errors: {},
-    message: 'register failed',
-    data: {
-      ...prevState.data,
-      ...Object.fromEntries(formData),
-    },
+  try {
+    const response = await api.post('/auth/register', JSON.stringify(validatedField.data))
+    if ((response.statusText = 'OK')) {
+      redirect('/login')
+    } else {
+      return {
+        errors: {},
+        message: 'register failed',
+        data: {
+          ...prevState.data,
+          ...Object.fromEntries(formData),
+        },
+      }
+    }
+  } catch (error: any) {
+    return {
+      errors: {},
+      message: error.message,
+      data: {
+        ...prevState.data,
+        ...Object.fromEntries(formData),
+      },
+    }
   }
 }
