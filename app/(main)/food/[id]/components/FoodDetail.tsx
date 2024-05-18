@@ -50,8 +50,8 @@ const FoodDetail = () => {
         quantity,
       })
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [] })
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart'] })
     },
   })
 
@@ -67,7 +67,7 @@ const FoodDetail = () => {
 
       <div className="flex flex-col gap-4 grow">
         <h1 className="text-5xl font-bold">{menuItem?.name}</h1>
-        <p className="text-2xl text-primary">{currentMenuItemOption?.price || 'Chưa cập nhật giá'}</p>
+        <p className="text-2xl text-primary">{currentMenuItemOption?.price.toLocaleString() || '?'}đ</p>
         <div className="flex items-center gap-2">
           <div className="rating rating-md rating-half">
             {(() => {

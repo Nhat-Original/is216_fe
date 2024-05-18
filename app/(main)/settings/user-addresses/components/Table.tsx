@@ -6,6 +6,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import useUserAddressesStore from '../stores/useUserAddressesStore'
 import { useShallow } from 'zustand/react/shallow'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import deleteIcon from '@/public/images/deleteIcon.svg'
+import Image from 'next/image'
 
 const Table = () => {
   const user = useSessionStore((state) => state.user)
@@ -14,7 +16,7 @@ const Table = () => {
   const queryClient = useQueryClient()
 
   const { isLoading } = useQuery({
-    queryKey: ['user-address'],
+    queryKey: ['user-address', user.id],
     queryFn: async () => {
       const response = await api.get(`/address/user/${user.id}`)
       setAddresses(response.data)
@@ -23,32 +25,28 @@ const Table = () => {
     enabled: !!user.id,
   })
 
-  const { mutate } = useMutation({
+  const { mutate: deleteAddress } = useMutation({
     mutationFn: async (id: string) => {
       await api.delete(`/address/${id}`)
     },
-    onSuccess: () => {
+    onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ['user-address'],
       })
     },
   })
 
-  const handleDelete = (id: string) => {
-    mutate(id)
-  }
-
   if (isLoading) return <LoadingSpinner />
 
   return (
-    <div className="overflow-x-auto overflow-y-scroll h-[calc(100vh-150px)]">
-      <table className="table table-zebra">
+    <div className="overflow-x-auto overflow-y-scroll max-w-max h-fit max-h-[calc(100vh-150px)]">
+      <table className="table table-zebra min-w-max">
         <thead className="bg-secondary">
           <tr>
             <th></th>
             <th>Tỉnh</th>
             <th>Huyện</th>
-            <th>Quận / Xã</th>
+            <th>Xã</th>
             <th>Địa chỉ chi tiết</th>
             <th></th>
           </tr>
@@ -64,15 +62,15 @@ const Table = () => {
                 <td>{address.ward}</td>
                 <td>{address.detail}</td>
                 <td>
-                  <button className="btn btn-sm btn-ghost" onClick={() => handleDelete(address.id)}>
-                    Xóa
+                  <button className="btn btn-sm btn-ghost" onClick={() => deleteAddress(address.id)}>
+                    <Image src={deleteIcon} alt="delete icon" />
                   </button>
                 </td>
               </tr>
             ))}
           {addresses.length === 0 && (
             <tr>
-              <td colSpan={7} className="text-center">
+              <td colSpan={6} className="text-center">
                 Không có dữ liệu
               </td>
             </tr>

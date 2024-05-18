@@ -18,7 +18,7 @@ const FunctionBar = () => {
   const start = activeSlide * itemsPerSlide + 1
 
   return (
-    <div className="flex items-center justify-around  w-screen h-[50px] bg-secondary p-4">
+    <div className="flex items-center justify-around  w-full h-[50px] bg-secondary p-4">
       {shownFoodList.length > 0 ? (
         <div>
           Hiển thị{' '}

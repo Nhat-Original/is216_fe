@@ -33,7 +33,7 @@ const Gallery = () => {
   if (shownFoodList.length === 0) return <div className="w-screen flex justify-center p-4">Không có dữ liệu</div>
 
   return (
-    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 p-4 w-fit mx-auto">
+    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 p-4 w-fit mx-auto gap-8">
       {Array.isArray(shownFoodList) &&
         shownFoodList.map((item) => (
           <li key={item.id}>

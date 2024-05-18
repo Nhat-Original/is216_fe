@@ -33,7 +33,7 @@ const ReviewForm = () => {
         menuItemId,
       })
     },
-    onSuccess: () => {
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['menu-item-detail'] })
     },
   })

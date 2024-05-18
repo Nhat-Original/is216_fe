@@ -53,7 +53,7 @@ const CreateModal = () => {
     mutationFn: async (body: any) => {
       await api.post('/address', body)
     },
-    onSuccess: () => {
+    onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ['user-address'],
       })
