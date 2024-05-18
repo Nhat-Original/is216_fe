@@ -1,20 +1,31 @@
 'use client'
-import React from 'react'
 import { useSessionStore } from '@/stores/useSessionStore'
 import { useRouter } from 'next/navigation'
-import avatarPlaceholder from '@/public/images/avatarPlaceholder.png'
-import { useShallow } from 'zustand/react/shallow'
-import Link from 'next/link'
-import { api } from '@/api'
+import { api } from '@/api/api'
+import { useUserStateStore } from '@/stores/useUserStateStore'
+import { useEffect } from 'react'
+import { useStore } from 'zustand'
 import { useQuery } from '@tanstack/react-query'
+import Link from 'next/link'
+import { useShallow } from 'zustand/react/shallow'
+import avatarPlaceholder from '@/public/images/avatarPlaceholder.png'
 
 const Avatar = () => {
-  const [auth, user] = useSessionStore(useShallow((state) => [state.auth, state.user]))
-  useQuery({
+  const userSession = useStore(useSessionStore, (state) => state)
+  const { setUser } = useStore(useUserStateStore, (s) => s)
+  const { data, isSuccess } = useQuery({
     queryKey: ['user'],
-    queryFn: () => api.get(`/user/${user.id}`),
+    queryFn: () => api.get(`/user/${userSession.user.id}`),
   })
+  useEffect(() => {
+    if (isSuccess && data.data) {
+      setUser(data.data)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess])
+
   const router = useRouter()
+  const [auth, user] = useSessionStore(useShallow((state) => [state.auth, state.user]))
 
   return (
     <div className="dropdown dropdown-end">

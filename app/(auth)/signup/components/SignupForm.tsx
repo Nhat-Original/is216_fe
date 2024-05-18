@@ -1,11 +1,11 @@
 'use client'
 import { useFormState } from 'react-dom'
 import { register } from '@/app/(auth)/action'
-import type { State } from '@/app/(auth)/action'
+import type { State, Errors } from '@/app/(auth)/action'
 import { useState } from 'react'
 
 const SignupForm = () => {
-  const initialState: State = { errors: {}, message: '', data: {} }
+  const initialState: State = { errors: {} as Errors, message: '', data: {} }
   const [state, dispatch] = useFormState(register, initialState)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 

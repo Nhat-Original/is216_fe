@@ -3,20 +3,30 @@
 import React from 'react'
 import logo from '@/public/images/favicon.ico'
 import UserBar from './UserBar'
+
 import { useStore } from 'zustand'
 import { useSessionStore } from '@/stores/useSessionStore'
 import AuthButton from './AuthButton'
+import { redirect } from 'next/navigation'
 import Link from 'next/link'
-
 const Navbar = () => {
-  const { auth } = useStore(useSessionStore)
+  const { login, auth } = useStore(useSessionStore)
+  React.useEffect(() => {
+    console.log('login')
+    login()
+  }, [login])
 
   return (
     <nav className="z-10 sticky top-0 bg-white flex items-center justify-evenly navbar border-b-2  border-base-300 h-[75px]">
-      <Link href="/">
+      <div
+        className="flex items-center gap-4 cursor-pointer"
+        onClick={() => {
+          redirect('/')
+        }}
+      >
         <img className="scale-90" src={logo.src} alt="logo" />
         <p className="text-4xl font-bold">FoodHub</p>
-      </Link>
+      </div>
       {auth && (
         <>
           <div className="hidden lg:block">
