@@ -13,16 +13,23 @@ const SigninForm = () => {
   const [state, dispatch] = useFormState(login, initialState)
   const store: any = useStore(useTokenStore, (s) => s)
   const UserSessionStore: any = useStore(useSessionStore, (s) => s)
+  console.log(UserSessionStore)
   useEffect(() => {
-    if ('access_token' in state?.data) {
+    if ('access_token' in state?.data && !UserSessionStore.auth) {
       store.setToken(state.data.access_token)
-      UserSessionStore.login(state.data.access_token)
-      setTimeout(() => {
+      UserSessionStore.login()
+      console.log(UserSessionStore)
+    }
+    if (UserSessionStore.auth) {
+      if (UserSessionStore.user.role === 'ROLE_OWNER') {
+        router.push('/owner')
+      }
+      if (UserSessionStore.user.role === 'ROLE_CUSTOMER') {
         router.push('/')
-      }, 10)
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state?.data])
+  }, [state?.data, UserSessionStore])
 
   return (
     <form className="space-y-4" action={dispatch}>

@@ -32,9 +32,17 @@ const FormRegisterSchema = FormLoginSchema.extend({
   message: 'Password and confirm password must be the same',
   path: ['confirmPassword'],
 })
-
+export type Errors = {
+  email?: string[]
+  password?: string[]
+  confirmPassword?: string[]
+  fullName?: string[]
+  gender?: string[]
+  dateOfBirth?: string[]
+  phone?: string[]
+}
 export type State = {
-  errors: Record<string, any>
+  errors: Errors
   message: string
   data: Record<string, any>
 }
@@ -49,7 +57,7 @@ export async function login(state: State, formData: FormData) {
         ...state.data,
         ...Object.fromEntries(formData),
       },
-    }
+    } as State
   }
   try {
     const response = await api.post('/auth/login', JSON.stringify(validatedField.data))
@@ -58,7 +66,7 @@ export async function login(state: State, formData: FormData) {
         errors: {},
         message: 'login success',
         data: response.data,
-      }
+      } as State
     } else {
       return {
         errors: {},
@@ -67,7 +75,7 @@ export async function login(state: State, formData: FormData) {
           ...state.data,
           ...Object.fromEntries(formData),
         },
-      }
+      } as State
     }
   } catch (error: any) {
     return {
@@ -77,7 +85,7 @@ export async function login(state: State, formData: FormData) {
         ...state.data,
         ...Object.fromEntries(formData),
       },
-    }
+    } as State
   }
 }
 export async function register(prevState: State, formData: FormData) {
@@ -90,7 +98,7 @@ export async function register(prevState: State, formData: FormData) {
         ...prevState.data,
         ...Object.fromEntries(formData),
       },
-    }
+    } as State
   }
   try {
     const response = await api.post('/auth/register', JSON.stringify(validatedField.data))
@@ -104,7 +112,7 @@ export async function register(prevState: State, formData: FormData) {
           ...prevState.data,
           ...Object.fromEntries(formData),
         },
-      }
+      } as State
     }
   } catch (error: any) {
     return {
@@ -114,6 +122,6 @@ export async function register(prevState: State, formData: FormData) {
         ...prevState.data,
         ...Object.fromEntries(formData),
       },
-    }
+    } as State
   }
 }
