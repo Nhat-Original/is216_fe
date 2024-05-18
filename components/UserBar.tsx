@@ -1,11 +1,13 @@
 'use client'
 import { useSessionStore } from '@/stores/useSessionStore'
-import { useStore } from 'zustand'
-import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { api } from '@/api/api'
 import { useUserStateStore } from '@/stores/useUserStateStore'
 import { useEffect } from 'react'
+import { useStore } from 'zustand'
+import { useQuery } from '@tanstack/react-query'
+import Link from 'next/link'
+import { useShallow } from 'zustand/react/shallow'
 const UserBar = () => {
   const userSession = useStore(useSessionStore, (state) => state)
   const { setUser } = useStore(useUserStateStore, (s) => s)
@@ -21,9 +23,11 @@ const UserBar = () => {
   }, [isSuccess])
 
   const router = useRouter()
+  const [auth, user] = useSessionStore(useShallow((state) => [state.auth, state.user]))
 
   return (
     <div className="flex-none">
+      {/* Giỏ hàng */}
       <div className="dropdown dropdown-end">
         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
           <div className="indicator">
@@ -55,32 +59,28 @@ const UserBar = () => {
           </div>
         </div>
       </div>
+      {/* Avatar */}
       <div className="dropdown dropdown-end">
         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-          <div className="w-10 rounded-full">
-            <img
-              alt="User's Avatar"
-              src={`https://ui-avatars.com/api/?name=${data?.data.fullName.replace(' ', '+')}`}
-            />
-          </div>
+          <div className="w-10 rounded-full">{/* <img alt="User's Avatar" src={avatarPlaceholder.src} /> */}</div>
         </div>
-        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+        <ul
+          tabIndex={0}
+          className="menu menu-sm w-[350px] dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box"
+        >
           <li>
-            <a className="justify-between">
-              Profile
-              <span className="badge">New</span>
-            </a>
+            <div>ID: {auth ? user.id : ''}</div>
           </li>
           <li>
-            <a>Settings</a>
+            <Link href="/settings/user-addresses">Quản lý địa chỉ</Link>
           </li>
           <li
             onClick={() => {
               useSessionStore.getState().logout()
-              router.push('/signin')
+              router.push('/')
             }}
           >
-            <a>Logout</a>
+            <div>Đăng xuất</div>
           </li>
         </ul>
       </div>

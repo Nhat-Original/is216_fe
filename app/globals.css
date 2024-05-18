@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer utilities {
+  .input,
   button,
   select,
   input {
