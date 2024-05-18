@@ -4,6 +4,8 @@ import React, { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { ToastContainer, Bounce } from 'react-toastify'
 import Providers from '@/components/Providers'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
 const metadata: Metadata = {
   title: 'IS216 - Next.js',
@@ -17,8 +19,9 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
       </head>
       <body>
         <Providers>
+          <Navbar />
           {children}
-
+          <Footer />
           <ToastContainer
             position="bottom-right"
             limit={3}

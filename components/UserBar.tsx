@@ -4,13 +4,22 @@ import { useStore } from 'zustand'
 import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { api } from '@/api/api'
+import { useUserStateStore } from '@/stores/useUserStateStore'
+import { useEffect } from 'react'
 const UserBar = () => {
   const userSession = useStore(useSessionStore, (state) => state)
-  const { data } = useQuery({
+  const { setUser } = useStore(useUserStateStore, (s) => s)
+  const { data, isSuccess } = useQuery({
     queryKey: ['user'],
     queryFn: () => api.get(`/user/${userSession.user.id}`),
   })
-  console.log(data)
+  useEffect(() => {
+    if (isSuccess && data.data) {
+      setUser(data.data)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess])
+
   const router = useRouter()
 
   return (
