@@ -53,8 +53,8 @@ const Table = () => {
   if (isLoading) return <LoadingSpinner />
 
   return (
-    <div className="mx-4 mt-4 sm:mx-10 overflow-x-auto overflow-y-scroll h-[calc(100vh-150px)]">
-      <table className="table table-zebra">
+    <div className="overflow-x-auto overflow-y-scroll max-w-max h-fit max-h-[calc(100vh-150px)]">
+      <table className="table table-zebra min-w-max">
         <thead className="bg-secondary">
           <tr>
             <th></th>
