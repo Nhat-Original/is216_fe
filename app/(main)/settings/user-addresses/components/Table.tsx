@@ -8,6 +8,7 @@ import { useShallow } from 'zustand/react/shallow'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import deleteIcon from '@/public/images/deleteIcon.svg'
 import Image from 'next/image'
+import { toast } from 'react-toastify'
 
 const Table = () => {
   const user = useSessionStore((state) => state.user)
@@ -25,14 +26,18 @@ const Table = () => {
     enabled: !!user.id,
   })
 
-  const { mutate: deleteAddress } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: async (id: string) => {
       await api.delete(`/address/${id}`)
     },
-    onSettled: () => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['user-address'],
       })
+      toast.success('Đã xóa địa chỉ')
+    },
+    onError: (err: any) => {
+      toast.error(err.response.data.message)
     },
   })
 
@@ -62,7 +67,7 @@ const Table = () => {
                 <td>{address.ward}</td>
                 <td>{address.detail}</td>
                 <td>
-                  <button className="btn btn-sm btn-ghost" onClick={() => deleteAddress(address.id)}>
+                  <button className="btn btn-sm btn-ghost" onClick={() => mutate(address.id)}>
                     <Image src={deleteIcon} alt="delete icon" />
                   </button>
                 </td>

@@ -6,6 +6,7 @@ import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { api, locationApi } from '@/api'
 import { z } from 'zod'
 import { useSessionStore } from '@/stores/useSessionStore'
+import { toast } from 'react-toastify'
 
 const CreateAddressSchema = z.object({
   province: z.string().min(1, { message: 'Tỉnh không được để trống' }),
@@ -53,10 +54,14 @@ const CreateModal = () => {
     mutationFn: async (body: any) => {
       await api.post('/address', body)
     },
-    onSettled: () => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['user-address'],
       })
+      toast.success('Đã thêm địa chỉ')
+    },
+    onError: (err: any) => {
+      toast.error(err.response.data.message)
     },
   })
 
@@ -95,9 +100,6 @@ const CreateModal = () => {
     e.preventDefault()
     const formData = Object.fromEntries(new FormData(e.currentTarget).entries())
     const { success, error } = CreateAddressSchema.safeParse(formData)
-
-    console.log(success)
-    console.log(error?.flatten().fieldErrors)
 
     if (!success) {
       setErrorMessages(error.flatten().fieldErrors)

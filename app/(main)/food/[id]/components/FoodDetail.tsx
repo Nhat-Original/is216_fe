@@ -8,6 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 import { api } from '@/api'
 import { useSessionStore } from '@/stores/useSessionStore'
 import { queryClient } from '@/components/Providers/QueryProvider'
+import { toast } from 'react-toastify'
 
 const FoodDetail = () => {
   const user = useSessionStore((state) => state.user)
@@ -44,14 +45,18 @@ const FoodDetail = () => {
       menuItemOptionId: string
       quantity: number
     }) => {
-      await api.post('/cart', {
+      return await api.post('/cart', {
         userId,
         menuItemOptionId,
         quantity,
       })
     },
-    onSettled: () => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cart'] })
+      toast.success('Đã thêm vào giỏ hàng')
+    },
+    onError: (err: any) => {
+      toast.error(err.response.data.message)
     },
   })
 
@@ -92,13 +97,16 @@ const FoodDetail = () => {
         <Link href={`/shop/${eatery?.id}`}>
           <p className="underline">{eatery?.name}</p>
         </Link>
-        <p>{menuItem?.description}</p>
+        <p>
+          {`${eatery?.address?.province}, ${eatery?.address?.district}, ${eatery?.address?.ward}, ${eatery?.address?.detail}`}
+        </p>
+        <p>{menuItem?.description || <span className="text-gray">Không có mô tả món ăn</span>}</p>
         <form
           className="form-control"
-          onSubmit={async (e) => {
+          onSubmit={(e) => {
             e.preventDefault()
             const formData = new FormData(e.target as HTMLFormElement)
-            await mutate({
+            mutate({
               userId: user?.id,
               menuItemOptionId: formData.get('menuItemOptionId') as string,
               quantity: parseInt(formData.get('quantity') as string),

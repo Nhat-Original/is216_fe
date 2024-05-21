@@ -26,6 +26,12 @@ type Review = {
 type Eatery = {
   id: string
   name: string
+  address: {
+    province: string
+    district: string
+    ward: string
+    detail: string
+  }
 }
 
 type Data = MenuItem & {

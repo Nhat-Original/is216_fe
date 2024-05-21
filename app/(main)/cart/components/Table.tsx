@@ -8,10 +8,13 @@ import Image from 'next/image'
 import deleteIcon from '@/public/images/deleteIcon.svg'
 import useCartStore, { CartItem } from '../stores/useCartStore'
 import { useShallow } from 'zustand/react/shallow'
+import { toast } from 'react-toastify'
 
 const Table = () => {
   const user = useSessionStore((state) => state.user)
-  const [cartItems, setCartItems] = useCartStore(useShallow((state) => [state.cartItems, state.setCartItems]))
+  const [cartItems, setCartItems, selectedCartItems, setSelectedCartItems] = useCartStore(
+    useShallow((state) => [state.cartItems, state.setCartItems, state.selectedCartItems, state.setSelectedCartItems]),
+  )
 
   const queryClient = useQueryClient()
 
@@ -29,10 +32,13 @@ const Table = () => {
     mutationFn: async ({ userId, menuItemOptionId }: { userId: string; menuItemOptionId: string }) => {
       await api.delete(`/cart/${userId}/${menuItemOptionId}`)
     },
-    onSettled: () => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['cart'],
       })
+    },
+    onError: (err: any) => {
+      toast.error(err.response.data.message)
     },
   })
 
@@ -48,10 +54,13 @@ const Table = () => {
     }) => {
       await api.patch(`/cart/${userId}/${menuItemOptionId}`, { quantity })
     },
-    onSettled: () => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['cart'],
       })
+    },
+    onError: (err: any) => {
+      toast.error(err.response.data.message)
     },
   })
 
@@ -62,8 +71,22 @@ const Table = () => {
       <table className="table table-zebra min-w-max">
         <thead className="bg-secondary">
           <tr>
+            <th>
+              <input
+                type="checkbox"
+                checked={cartItems.length !== 0 && selectedCartItems.length === cartItems.length}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setSelectedCartItems(cartItems)
+                  } else {
+                    setSelectedCartItems([])
+                  }
+                }}
+              />
+            </th>
             <th></th>
             <th>Tên món ăn</th>
+            <th>Tên cửa hàng</th>
             <th>Đơn giá</th>
             <th>Số lượng</th>
             <th>Tổng tiền</th>
@@ -76,11 +99,31 @@ const Table = () => {
             cartItems?.map((item) => (
               <tr key={item.menuItemOptionId}>
                 <td>
+                  <input
+                    type="checkbox"
+                    checked={selectedCartItems.some(
+                      (selectedItem) => selectedItem.menuItemOptionId === item.menuItemOptionId,
+                    )}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedCartItems([...selectedCartItems, item])
+                      } else {
+                        setSelectedCartItems(
+                          selectedCartItems.filter(
+                            (selectedItem) => selectedItem.menuItemOptionId !== item.menuItemOptionId,
+                          ),
+                        )
+                      }
+                    }}
+                  />
+                </td>
+                <td>
                   <img src={item.imageUrl} alt={item.name} className="w-10 aspect-square object-cover rounded" />
                 </td>
                 <td>
                   {item.name} ({item.size})
                 </td>
+                <td>{item.eatery.name}</td>
                 <td>{item.price.toLocaleString()}đ</td>
                 <td>
                   <input
@@ -115,7 +158,7 @@ const Table = () => {
             ))}
           {cartItems.length === 0 && (
             <tr>
-              <td colSpan={6} className="text-center">
+              <td colSpan={8} className="text-center">
                 Giỏ hàng trống
               </td>
             </tr>
