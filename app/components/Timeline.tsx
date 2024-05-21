@@ -2,7 +2,7 @@ const Timeline = () => {
   return (
     <ul className="timeline timeline-vertical">
       <li>
-        <div className="timeline-start">1984</div>
+        <div className="timeline-start">2020</div>
         <div className="timeline-middle">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
             <path
@@ -12,12 +12,12 @@ const Timeline = () => {
             />
           </svg>
         </div>
-        <div className="timeline-end timeline-box">First Macintosh computer</div>
+        <div className="timeline-end timeline-box">FoodHub được thành lập</div>
         <hr />
       </li>
       <li>
         <hr />
-        <div className="timeline-start">1998</div>
+        <div className="timeline-start">2021</div>
         <div className="timeline-middle">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
             <path
@@ -27,12 +27,12 @@ const Timeline = () => {
             />
           </svg>
         </div>
-        <div className="timeline-end timeline-box">iMac</div>
+        <div className="timeline-end timeline-box">FoodHub đạt 100,000 lượt truy cập</div>
         <hr />
       </li>
       <li>
         <hr />
-        <div className="timeline-start">2001</div>
+        <div className="timeline-start">2022</div>
         <div className="timeline-middle">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
             <path
@@ -42,12 +42,12 @@ const Timeline = () => {
             />
           </svg>
         </div>
-        <div className="timeline-end timeline-box">iPod</div>
+        <div className="timeline-end timeline-box">FoodHub đạt 500,000 lượt truy cập</div>
         <hr />
       </li>
       <li>
         <hr />
-        <div className="timeline-start">2007</div>
+        <div className="timeline-start">2023</div>
         <div className="timeline-middle">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
             <path
@@ -57,12 +57,12 @@ const Timeline = () => {
             />
           </svg>
         </div>
-        <div className="timeline-end timeline-box">iPhone</div>
+        <div className="timeline-end timeline-box">FoodHub đạt 1,000,000 lượt truy cập</div>
         <hr />
       </li>
       <li>
         <hr />
-        <div className="timeline-start">2015</div>
+        <div className="timeline-start">2024</div>
         <div className="timeline-middle">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
             <path
@@ -72,7 +72,9 @@ const Timeline = () => {
             />
           </svg>
         </div>
-        <div className="timeline-end timeline-box">Apple Watch</div>
+        <div className="timeline-end timeline-box">
+          FoodHub nằm trong top 10 website thương mại điện tử tại Việt Nam
+        </div>
       </li>
     </ul>
   )

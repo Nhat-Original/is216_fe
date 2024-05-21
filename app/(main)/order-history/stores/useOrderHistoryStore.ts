@@ -8,7 +8,7 @@ enum PaymentMethod {
 enum DeliveryStatus {
   PENDING = 'PENDING',
   SUCCESS = 'SUCCESS',
-  FAILED = 'FAILED',
+  FAIL = 'FAIL',
 }
 
 type Eatery = {

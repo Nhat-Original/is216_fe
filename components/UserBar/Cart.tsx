@@ -34,7 +34,7 @@ const Cart = () => {
           <span className="font-bold text-lg">{cartItemCount} đơn hàng</span>
           <div className="card-actions">
             <Link href="/cart">
-              <button className="btn btn-primary btn-block">Xem chi tiết</button>
+              <button className="btn bg-primary btn-block">Xem chi tiết</button>
             </Link>
           </div>
         </div>

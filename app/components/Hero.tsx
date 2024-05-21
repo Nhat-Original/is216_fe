@@ -19,7 +19,7 @@ const Hero = () => {
       <div className="hero-content text-center ">
         <div className="max-w-md ">
           <h1 className="text-5xl font-bold">Foodhub</h1>
-          <p className="py-6">Đặt các món ăn ngon từ các nhà hàng, quán ăn uy tín nhất</p>
+          <p className="py-6">Đặt các món ăn ngon từ các cửa hàng, quán ăn uy tín nhất</p>
           <button className="btn btn-primary">Đăng nhập ngay</button>
         </div>
         <Image src={heroShowcase2} quality={100} alt="hero showcase 2" width={300} height={300} />

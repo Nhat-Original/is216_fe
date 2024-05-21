@@ -8,15 +8,19 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 const metadata: Metadata = {
-  title: 'IS216 - Next.js',
+  title: 'FoodHub',
+  icons: [
+    {
+      rel: 'icon',
+      href: '/images/favicon.ico',
+      url: '',
+    },
+  ],
 }
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="vi" data-theme="light">
-      <head>
-        <link rel="icon" href="/images/favicon.ico" />
-      </head>
       <body>
         <Providers>
           <Navbar />

@@ -12,7 +12,7 @@ const Table = () => {
   const [orders, setOrders] = useOrderHistoryStore(useShallow((state) => [state.orders, state.setOrders]))
 
   const { isLoading } = useQuery({
-    queryKey: ['order-history'],
+    queryKey: ['user-order'],
     queryFn: async () => {
       const response = await api.get(`/order/user/${user.id}`)
       setOrders(response.data)
@@ -38,7 +38,7 @@ const Table = () => {
         return 'Đang chờ'
       case DeliveryStatus.SUCCESS:
         return 'Thành công'
-      case DeliveryStatus.FAILED:
+      case DeliveryStatus.FAIL:
         return 'Thất bại'
       default:
         return ''
