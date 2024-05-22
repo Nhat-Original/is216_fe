@@ -3,32 +3,21 @@
 import { useUserStateStore } from '@/stores/useUserStateStore'
 import Link from 'next/link'
 import { useStore } from 'zustand'
+import { usePathname } from 'next/navigation'
 const ListEateries = () => {
-  //   const userSession = useStore(useSessionStore, (state) => state)
-  //   console.log(userSession)
-  //   const { data, isFetching, isLoading } = useQuery({
-  //     queryKey: ['user'],
-  //     queryFn: () => api.get(`/user/${userSession.user.id}`),
-  //   })
-  //   console.log(window)
-  //   console.log(data, 'client')
+  const asPath = usePathname()
 
   const user = useStore(useUserStateStore)
-
   return (
-    // <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-    //   <div className="w-full flex-none md:w-64">
-    //     <SideNav />
-    //   </div>
-    //   <div className="flex-grow p-6 md:overflow-y-auto md:p-12">{children}</div>
-    // </div>
-    <div>
-      <h1>Danh sách cửa hàng</h1>
-      <ul>
+    <div className="flex justify-center items-center">
+      <ul className="menu bg-base-200 w-56 rounded-box">
+        <li className="menu-title">Danh sách cửa hàng</li>
         {user.eateries.map((eatery) => (
-          <Link href={`/eatery/${eatery.id}`} key={eatery.id}>
-            <li>{eatery.name}</li>
-          </Link>
+          <li key={eatery.id}>
+            <Link href={`${asPath}/eatery/${eatery.id}`}>
+              {eatery.name}: {eatery.isAlive ? 'Mở' : 'Đóng'}
+            </Link>
+          </li>
         ))}
       </ul>
     </div>
