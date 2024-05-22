@@ -41,7 +41,8 @@ const Navbar = () => {
         <img className="scale-90" src={logo.src} alt="logo" />
         <p className="text-4xl font-bold">FoodHub</p>
       </div>
-      <div className="block">
+      {/* Display all nav links when the screen width is at least 1024px */}
+      <div className="hidden lg:block">
         <Link href={ROUTES.FOOD}>
           <p className="btn btn-ghost text-lg">Đồ ăn</p>
         </Link>
@@ -69,6 +70,51 @@ const Navbar = () => {
             )}
           </>
         )}
+      </div>
+      {/* Display menu button when the screen width is smaller than 1024px */}
+      <div className="dropdown dropdown-end lg:hidden">
+        <div tabIndex={0} role="button" className="btn m-1">
+          Menu
+        </div>
+        <ul tabIndex={0} className="w-60 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box">
+          <li>
+            <Link href={ROUTES.FOOD}>
+              <p className="btn btn-ghost text-lg">Đồ ăn</p>
+            </Link>
+          </li>
+          <li>
+            <Link href={ROUTES.SHOP}>
+              <p className="btn btn-ghost text-lg">Shop đồ ăn</p>
+            </Link>
+          </li>
+          {auth && (
+            <>
+              {user.role === ROLES.CUSTOMER && (
+                <>
+                  <li>
+                    <Link href={ROUTES.ORDER_HISTORY}>
+                      <p className="btn btn-ghost text-lg">Lịch sử đơn hàng</p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href={ROUTES.SUPPORT}>
+                      <p className="btn btn-ghost text-lg">Hỗ trợ</p>
+                    </Link>
+                  </li>
+                </>
+              )}
+              {user.role === ROLES.OWNER && (
+                <>
+                  <li>
+                    <Link href={ROUTES.OWNER}>
+                      <p className="btn btn-ghost text-lg">Quản lý quán</p>
+                    </Link>
+                  </li>
+                </>
+              )}
+            </>
+          )}
+        </ul>
       </div>
       {auth ? <UserBar /> : <AuthButton />}
     </nav>
