@@ -15,27 +15,24 @@ type MenuItemProps = {
   description: string
   imageUrl: string
   menuItemOptions: MenuItemOptionProps[]
-  menu_id: string
 }
 
 // eslint-disable-next-line react/display-name
-const Form = forwardRef(({ menu_id }: { menu_id: string }, ref) => {
-  const [menuItem, setMenuItem] = useState<MenuItemProps>({
-    name: '',
-    description: '',
-    imageUrl: '',
-    menuItemOptions: [],
-    menu_id: menu_id,
-  })
+const Form = forwardRef(({ data, id }: { data: MenuItemProps; id: string }, ref) => {
+  const [menuItem, setMenuItem] = useState<MenuItemProps>(data)
 
   const [errorMessage, setErrorMessage] = useState('')
 
   const mutation = useMutation({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['menu'] })
-      clearForm()
+      toast.success('Cập nhật thành công')
+      ;(document.getElementById(`edit_modal_${id}`) as HTMLDialogElement).close()
     },
-    mutationFn: () => api.post('/menu-item', menuItem),
+    onError: () => {
+      toast.error('Cập nhật thất bại')
+    },
+    mutationFn: () => api.patch(`/menu-item/${id}`, menuItem),
   })
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
@@ -93,37 +90,22 @@ const Form = forwardRef(({ menu_id }: { menu_id: string }, ref) => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    // Validation check
     if (!menuItem.name || !menuItem.description || !menuItem.imageUrl || menuItem.menuItemOptions.length === 0) {
       setErrorMessage('All fields must be filled out and at least one size option must be added.')
       return
     }
 
-    menuItem['menu_id'] = menu_id
     menuItem.menuItemOptions = menuItem.menuItemOptions.map((option) => {
       return { ...option, price: Number(option.price) }
     })
 
     setErrorMessage('')
+    console.log(menuItem)
     mutation.mutate()
-    if (mutation.isSuccess) {
-      clearForm()
-      ;(document.getElementById('create_modal') as HTMLDialogElement).close()
-
-      toast.success('Tạo thành công')
-    } else {
-      toast.error('Tạo thất bại')
-    }
   }
 
   const clearForm = () => {
-    setMenuItem({
-      name: '',
-      description: '',
-      imageUrl: '',
-      menuItemOptions: [],
-      menu_id: menu_id,
-    })
+    setMenuItem(data)
     setErrorMessage('')
   }
 

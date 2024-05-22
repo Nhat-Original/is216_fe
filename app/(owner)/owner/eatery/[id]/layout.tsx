@@ -1,17 +1,29 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import SideNav from '@/app/(owner)/components/side-bar'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '@/api'
+import type { Owner } from '../../store/ownerStore'
+import { useStore } from 'zustand'
+import { EateryStore } from '../../store/ownerStore'
 const EateryLayout = ({ children }: { children: React.ReactNode }) => {
   const { id } = useParams<{ id: string }>()
-  const { data } = useQuery({
+  const eateryStore = useStore(EateryStore)
+  const { data, isSuccess } = useQuery({
     queryKey: ['eatery', id],
     queryFn: () => api.get(`/eatery/${id}`),
   })
-  console.log('route')
-  console.log(data)
+  useEffect(() => {
+    if (isSuccess && data.data) {
+      const dt = {
+        name: data.data.name,
+        menu_id: data.data.menu.id,
+      }
+      eateryStore.setEatery(dt as Owner)
+    }
+  }, [isSuccess])
   return (
     <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
       <div className="w-full flex-none md:w-64">

@@ -29,7 +29,7 @@ const DataProvider = ({ id, children }: { id: string; children: ReactNode }) => 
 
         const response = await api.get(`/menu-item/${id}`)
         const data = response.data as Data
-
+        console.log(data, 'data')
         setMenuItem({
           id: data.id,
           name: data.name,
@@ -45,7 +45,7 @@ const DataProvider = ({ id, children }: { id: string; children: ReactNode }) => 
 
         return response.data
       } catch (err) {
-        router.push('/food')
+        // router.push('/food')
       }
     },
   })

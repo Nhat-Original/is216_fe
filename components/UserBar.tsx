@@ -12,10 +12,9 @@ const UserBar = () => {
   const userSession = useStore(useSessionStore, (state) => state)
   const { setUser } = useStore(useUserStateStore, (s) => s)
   const { data, isSuccess } = useQuery({
-    queryKey: ['user'],
+    queryKey: ['user', userSession.user.id],
     queryFn: () => api.get(`/user/${userSession.user.id}`),
   })
-  console.log(data, 'client')
   useEffect(() => {
     if (isSuccess && data.data) {
       setUser(data.data)
