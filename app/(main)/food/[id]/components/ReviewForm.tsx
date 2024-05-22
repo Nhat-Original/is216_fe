@@ -6,6 +6,7 @@ import React from 'react'
 import useFoodDetailStore from '../stores/useFoodDetailStore'
 import { api } from '@/api'
 import { useShallow } from 'zustand/react/shallow'
+import { toast } from 'react-toastify'
 
 const ReviewForm = () => {
   const user = useSessionStore((state) => state.user)
@@ -35,6 +36,10 @@ const ReviewForm = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['menu-item-detail'] })
+      toast.success('Đã thêm đánh giá')
+    },
+    onError: (err: any) => {
+      toast.error(err.response.data.message)
     },
   })
 

@@ -6,7 +6,9 @@ const OrderHistoryPage = () => {
   return (
     <div>
       <RouteBreadcrumb />
-      <Table />
+      <div className="flex justify-center">
+        <Table />
+      </div>
     </div>
   )
 }

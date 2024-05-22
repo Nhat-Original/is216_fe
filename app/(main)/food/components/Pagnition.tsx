@@ -25,7 +25,7 @@ const Pagnition = () => {
   }
 
   return (
-    <div className="py-10 flex justify-center">
+    <div className="flex justify-center">
       <div className="join">
         <button className={`join-item btn ${activeSlide === 0 ? 'btn-disabled' : ''}`} onClick={goToPreviousSlide}>
           «

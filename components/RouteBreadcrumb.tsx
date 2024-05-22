@@ -6,7 +6,7 @@ const RouteBreadcrumb = () => {
   const path = usePathname()
   const routeElements = path.split('/').filter((el) => el !== '')
   return (
-    <div className="h-fit w-screen p-2 flex items-center">
+    <div className="h-fit w-fit flex items-center mb-4">
       <div>
         <span>HOME</span>
         <span className="text-2xl text-primary font-bold">{' > '}</span>

@@ -12,7 +12,7 @@ const Table = () => {
   const [orders, setOrders] = useOrderHistoryStore(useShallow((state) => [state.orders, state.setOrders]))
 
   const { isLoading } = useQuery({
-    queryKey: ['order-history'],
+    queryKey: ['user-order'],
     queryFn: async () => {
       const response = await api.get(`/order/user/${user.id}`)
       setOrders(response.data)
@@ -38,7 +38,7 @@ const Table = () => {
         return 'Đang chờ'
       case DeliveryStatus.SUCCESS:
         return 'Thành công'
-      case DeliveryStatus.FAILED:
+      case DeliveryStatus.FAIL:
         return 'Thất bại'
       default:
         return ''
@@ -53,8 +53,8 @@ const Table = () => {
   if (isLoading) return <LoadingSpinner />
 
   return (
-    <div className="mx-4 mt-4 sm:mx-10 overflow-x-auto overflow-y-scroll h-[calc(100vh-150px)]">
-      <table className="table table-zebra">
+    <div className="overflow-x-auto overflow-y-scroll max-w-max h-fit max-h-[calc(100vh-150px)]">
+      <table className="table table-zebra min-w-max">
         <thead className="bg-secondary">
           <tr>
             <th></th>
