@@ -15,6 +15,7 @@ const UserBar = () => {
     queryKey: ['user'],
     queryFn: () => api.get(`/user/${userSession.user.id}`),
   })
+  console.log(data, 'client')
   useEffect(() => {
     if (isSuccess && data.data) {
       setUser(data.data)
@@ -62,7 +63,9 @@ const UserBar = () => {
       {/* Avatar */}
       <div className="dropdown dropdown-end">
         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-          <div className="w-10 rounded-full">{/* <img alt="User's Avatar" src={avatarPlaceholder.src} /> */}</div>
+          <div className="w-10 rounded-full">
+            <img alt="User's Avatar" src={`https://i.pravatar.cc/150?u=${user.id}`} />
+          </div>
         </div>
         <ul
           tabIndex={0}
