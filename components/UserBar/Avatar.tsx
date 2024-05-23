@@ -31,7 +31,13 @@ const Avatar = () => {
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-          <img alt="User's Avatar" src={avatarPlaceholder.src} />
+          <img
+            alt="User's Avatar"
+            src={`https://i.pravatar.cc/150?u=${user.id}`}
+            onError={(e: any) => {
+              e.target.src = avatarPlaceholder.src
+            }}
+          />
         </div>
       </div>
       <ul
