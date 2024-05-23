@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer p-10  text-base-content gap-40 border-base-300 border-t-2">
       <aside className="">
         <div className="flex size-60  items-center ">
-          <Image src={logo} width={50} height={50} alt="Picture of the author" />
+          <Image src={logo} width={50} height={50} alt="logo" />
           <div className="flex font-bold text-[50px]">
             <div>FoodHub</div>
           </div>
