@@ -23,15 +23,14 @@ api.interceptors.request.use((config) => {
 
 api.interceptors.response.use(
   (response) => {
-    if (typeof response.data === 'string') {
-      response.data = JSON.parse(response.data)
-    }
     return response
   },
   (error) => {
     if (error.response && error.response.status === 401 && error.config.url !== '/auth/login') {
       useSessionStore.getState().logout()
       redirect('/signin')
+    } else if (error.response && error.response.status === 403) {
+      redirect('/')
     }
     return Promise.reject(error)
   },

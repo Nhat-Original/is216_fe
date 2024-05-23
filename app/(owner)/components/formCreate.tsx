@@ -33,7 +33,12 @@ const Form = forwardRef(({ menu_id }: { menu_id: string }, ref) => {
   const mutation = useMutation({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['menu'] })
+      ;(document.getElementById('create_modal') as HTMLDialogElement).close()
+      toast.success('Thêm thành công')
       clearForm()
+    },
+    onError: () => {
+      toast.error('Thêm thất bại')
     },
     mutationFn: () => api.post('/menu-item', menuItem),
   })
@@ -106,14 +111,6 @@ const Form = forwardRef(({ menu_id }: { menu_id: string }, ref) => {
 
     setErrorMessage('')
     mutation.mutate()
-    if (mutation.isSuccess) {
-      clearForm()
-      ;(document.getElementById('create_modal') as HTMLDialogElement).close()
-
-      toast.success('Tạo thành công')
-    } else {
-      toast.error('Tạo thất bại')
-    }
   }
 
   const clearForm = () => {
