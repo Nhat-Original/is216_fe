@@ -29,6 +29,8 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401 && error.config.url !== '/auth/login') {
       useSessionStore.getState().logout()
       redirect('/signin')
+    } else if (error.response && error.response.status === 403) {
+      redirect('/')
     }
     return Promise.reject(error)
   },

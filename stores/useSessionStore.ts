@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { jwtDecode, JwtPayload } from 'jwt-decode'
 import { StoreApi, UseBoundStore } from 'zustand'
 import { persist } from 'zustand/middleware'
+
 type User = {
   id: string
   role: string

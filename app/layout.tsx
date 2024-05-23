@@ -27,7 +27,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
           {children}
           <Footer />
           <ToastContainer
-            position="bottom-right"
+            position="top-right"
             limit={3}
             autoClose={3000}
             hideProgressBar={false}
