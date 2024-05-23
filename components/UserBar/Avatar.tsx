@@ -34,7 +34,11 @@ const Avatar = () => {
         <div className="w-10 rounded-full">
           <img
             alt="User's Avatar"
+
             src={`https://i.pravatar.cc/150?u=${hashids.encodeHex(user.id.replace(/-/g, ''))}`}
+            onError={(e: any) => {
+              e.target.src = avatarPlaceholder.src
+            }}
           />
         </div>
       </div>

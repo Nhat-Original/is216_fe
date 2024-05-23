@@ -6,7 +6,6 @@ import { useShallow } from 'zustand/react/shallow'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/api'
 import LoadingSpinner from '@/components/LoadingSpinner'
-import foodShowcasePlaceholder from '@/public/images/foodShowcasePlaceholder.png'
 
 const Gallery = () => {
   const [setOriginalFoodList, setActiveSlide, shownFoodList, nameSearch] = useFoodStore(
@@ -38,7 +37,7 @@ const Gallery = () => {
       {Array.isArray(shownFoodList) &&
         shownFoodList.map((item) => (
           <li key={item.id} className="hover:scale-105">
-            <ShowcaseCard id={item.id} name={item.name} imageUrl={item.imageUrl || foodShowcasePlaceholder.src} />
+            <ShowcaseCard id={item.id} name={item.name} imageUrl={item.imageUrl} />
           </li>
         ))}
     </ul>

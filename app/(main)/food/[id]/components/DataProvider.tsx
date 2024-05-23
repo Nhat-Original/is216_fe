@@ -5,6 +5,7 @@ import { useShallow } from 'zustand/react/shallow'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '@/api'
 import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
 
 const DataProvider = ({ id, children }: { id: string; children: ReactNode }) => {
   const [setEatery, setMenuItem, setMenuItemOptions, setReviews, setIsLoading, setCurrentMenuItemOption] =
@@ -29,7 +30,6 @@ const DataProvider = ({ id, children }: { id: string; children: ReactNode }) => 
 
         const response = await api.get(`/menu-item/${id}`)
         const data = response.data as Data
-        console.log(data, 'data')
         setMenuItem({
           id: data.id,
           name: data.name,
@@ -45,7 +45,8 @@ const DataProvider = ({ id, children }: { id: string; children: ReactNode }) => 
 
         return response.data
       } catch (err) {
-        // router.push('/food')
+        toast.error('Không lấy được dữ liệu chi tiết món ăn')
+        router.push('/food')
       }
     },
   })
