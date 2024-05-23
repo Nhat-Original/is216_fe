@@ -9,6 +9,7 @@ import { api } from '@/api'
 import { useSessionStore } from '@/stores/useSessionStore'
 import { queryClient } from '@/components/Providers/QueryProvider'
 import { toast } from 'react-toastify'
+import foodShowcasePlaceholder from '@/public/images/foodShowcasePlaceholder.png'
 
 const FoodDetail = () => {
   const user = useSessionStore((state) => state.user)
@@ -67,7 +68,14 @@ const FoodDetail = () => {
   return (
     <div className="flex flex-col items-center lg:items-start gap-10 lg:flex-row max-w-[1400px] mx-auto p-4 lg:gap-32">
       <div className="max-w-[475px] aspect-square">
-        <img className="w-full h-full object-cover rounded-2xl" src={menuItem?.imageUrl} alt="food image" />
+        <img
+          className="w-full h-full object-cover rounded-2xl"
+          src={menuItem?.imageUrl}
+          alt="food image"
+          onError={(e: any) => {
+            e.target.src = foodShowcasePlaceholder.src
+          }}
+        />
       </div>
 
       <div className="flex flex-col gap-4 grow">
