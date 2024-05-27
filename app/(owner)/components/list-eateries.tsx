@@ -23,8 +23,8 @@ const ListEateries = () => {
     return <p>Bạn chưa có cửa hàng nào</p>
   }
   return (
-    <div className="flex justify-center items-center w-full border">
-      <ul className="menu bg-base-200 w-1/3 rounded-box text-center">
+    <div className="flex justify-center items-center w-full">
+      <ul className="mt-8 menu bg-base-200 w-1/3 rounded-box text-center">
         <li className="menu-title text-lg  ">Danh sách cửa hàng</li>
         {user.eateries.map((eatery) => (
           <Link href={`${asPath}/eatery/${eatery.id}`} key={eatery.id}>

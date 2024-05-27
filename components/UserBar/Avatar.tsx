@@ -8,9 +8,11 @@ import { useStore } from 'zustand'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import { useShallow } from 'zustand/react/shallow'
-
 import Hashids from 'hashids'
+import avatarPlaceholder from '@/public/images/avatarPlaceholder.png'
+
 const hashids = new Hashids()
+
 const Avatar = () => {
   const userSession = useStore(useSessionStore, (state) => state)
   const { setUser } = useStore(useUserStateStore, (s) => s)
@@ -33,8 +35,7 @@ const Avatar = () => {
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
           <img
-            alt="User's Avatar"
-
+            alt="avatar"
             src={`https://i.pravatar.cc/150?u=${hashids.encodeHex(user.id.replace(/-/g, ''))}`}
             onError={(e: any) => {
               e.target.src = avatarPlaceholder.src
