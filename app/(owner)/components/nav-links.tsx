@@ -7,10 +7,6 @@ const links = [
     name: 'Danh sách sản phẩm',
     href: '',
   },
-  {
-    name: 'Doanh thu',
-    href: '/revenue',
-  },
 ]
 export default function NavLinks() {
   const pathname = usePathname()

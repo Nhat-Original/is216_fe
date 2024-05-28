@@ -46,9 +46,9 @@ const Navbar = () => {
         <Link href={ROUTES.FOOD}>
           <p className="btn btn-ghost text-lg">Đồ ăn</p>
         </Link>
-        <Link href={ROUTES.SHOP}>
+        {/* <Link href={ROUTES.SHOP}>
           <p className="btn btn-ghost text-lg">Shop đồ ăn</p>
-        </Link>
+        </Link> */}
         {auth && (
           <>
             {user.role === ROLES.CUSTOMER && (

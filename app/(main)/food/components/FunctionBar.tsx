@@ -2,7 +2,7 @@
 import React from 'react'
 import useFoodStore from '../stores/useFoodStore'
 import { useShallow } from 'zustand/react/shallow'
-
+import { useDebouncedCallback } from 'use-debounce'
 const FunctionBar = () => {
   const [activeSlide, itemsPerSlide, shownFoodList, originalFoodList, nameSearch, setNameSearch] = useFoodStore(
     useShallow((state) => [
@@ -16,7 +16,9 @@ const FunctionBar = () => {
   )
 
   const start = activeSlide * itemsPerSlide + 1
-
+  const setName = useDebouncedCallback((value) => {
+    setNameSearch(value), 1000
+  })
   return (
     <div className="flex items-center justify-around  w-full h-[50px] bg-secondary p-4">
       {shownFoodList.length > 0 ? (
@@ -41,7 +43,7 @@ const FunctionBar = () => {
             placeholder="Tìm tên món ăn"
             value={nameSearch}
             onChange={(e) => {
-              setNameSearch(e.target.value)
+              setName(e.target.value)
             }}
           />
           <svg
