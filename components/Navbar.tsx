@@ -17,6 +17,7 @@ const ROUTES = {
   ADMIN: '/admin',
   ORDER_HISTORY: '/order-history',
   SUPPORT: '/support',
+  CONTACT: '/contact',
 }
 
 const ROLES = {
@@ -56,6 +57,9 @@ const Navbar = () => {
                 <Link href={ROUTES.ORDER_HISTORY}>
                   <p className="btn btn-ghost text-lg">Lịch sử đơn hàng</p>
                 </Link>
+                <Link href={ROUTES.CONTACT}>
+                  <p className="btn btn-ghost text-lg">Liên lạc</p>
+                </Link>
                 <Link href={ROUTES.SUPPORT}>
                   <p className="btn btn-ghost text-lg">Hỗ trợ</p>
                 </Link>
@@ -94,6 +98,11 @@ const Navbar = () => {
                   <li>
                     <Link href={ROUTES.ORDER_HISTORY}>
                       <p className="btn btn-ghost text-lg">Lịch sử đơn hàng</p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href={ROUTES.CONTACT}>
+                      <p className="btn btn-ghost text-lg">Liên lạc</p>
                     </Link>
                   </li>
                   <li>
