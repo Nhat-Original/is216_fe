@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 import { useSessionStore, useTokenStore } from '@/stores/useSessionStore'
-import { redirect } from 'next/navigation'
 
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -28,9 +27,9 @@ api.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401 && error.config.url !== '/auth/login') {
       useSessionStore.getState().logout()
-      redirect('/signin')
+      window.location.href = '/signin'
     } else if (error.response && error.response.status === 403) {
-      redirect('/')
+      window.location.href = '/'
     }
     return Promise.reject(error)
   },
