@@ -16,7 +16,6 @@ const ROUTES = {
   OWNER: '/owner',
   ADMIN: '/admin',
   ORDER_HISTORY: '/order-history',
-  SUPPORT: '/support',
   CONTACT: '/contact',
 }
 
@@ -47,24 +46,18 @@ const Navbar = () => {
         <Link href={ROUTES.FOOD}>
           <p className="btn btn-ghost text-lg">Đồ ăn</p>
         </Link>
+        <Link href={ROUTES.CONTACT}>
+          <p className="btn btn-ghost text-lg">Liên lạc</p>
+        </Link>
+        <Link href={ROUTES.ORDER_HISTORY}>
+          <p className="btn btn-ghost text-lg">Lịch sử đơn hàng</p>
+        </Link>
         {/* <Link href={ROUTES.SHOP}>
           <p className="btn btn-ghost text-lg">Shop đồ ăn</p>
         </Link> */}
         {auth && (
           <>
-            {user.role === ROLES.CUSTOMER && (
-              <>
-                <Link href={ROUTES.ORDER_HISTORY}>
-                  <p className="btn btn-ghost text-lg">Lịch sử đơn hàng</p>
-                </Link>
-                <Link href={ROUTES.CONTACT}>
-                  <p className="btn btn-ghost text-lg">Liên lạc</p>
-                </Link>
-                <Link href={ROUTES.SUPPORT}>
-                  <p className="btn btn-ghost text-lg">Hỗ trợ</p>
-                </Link>
-              </>
-            )}
+            {user.role === ROLES.CUSTOMER && <></>}
             {user.role === ROLES.OWNER && (
               <>
                 <Link href={ROUTES.OWNER}>
@@ -103,11 +96,6 @@ const Navbar = () => {
                   <li>
                     <Link href={ROUTES.CONTACT}>
                       <p className="btn btn-ghost text-lg">Liên lạc</p>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href={ROUTES.SUPPORT}>
-                      <p className="btn btn-ghost text-lg">Hỗ trợ</p>
                     </Link>
                   </li>
                 </>

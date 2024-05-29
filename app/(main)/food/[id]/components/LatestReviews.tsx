@@ -6,7 +6,7 @@ import LoadingSpinner from '@/components/LoadingSpinner'
 
 const LatestReviews = () => {
   const [isLoading, reviews] = useFoodDetailStore(useShallow((state) => [state.isLoading, state.reviews]))
-  const latestReviews = reviews.slice(-2)
+  const latestReviews = reviews.slice(-5)
 
   if (isLoading) return <LoadingSpinner />
 
