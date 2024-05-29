@@ -9,7 +9,7 @@ const UserAdressesPage = () => {
     <div>
       <RouteBreadcrumb />
       <div className="flex justify-center">
-        <div>
+        <div className="w-4/5">
           <CreateModal />
           <Table />
         </div>

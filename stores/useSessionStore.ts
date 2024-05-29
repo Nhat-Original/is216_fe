@@ -28,7 +28,6 @@ export const useSessionStore = create<StateUser>((set) => ({
   },
   login: () => {
     const token = (useTokenStore.getState() as any).token
-    console.log('token', token)
     if (token !== '') {
       const decoded = jwtDecode<jwtPayLoadWithRole>(token)
       set({
